@@ -8,13 +8,14 @@ import java.util.Vector;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import Model.*;
 import Vista.*;
 
-;/**
-*
- */
+/*
+* Detectar y manejar eventos de acción
+*/
 public class LoginControl implements ActionListener
 {
 	public final static String SELECCIONAR="S";
@@ -22,11 +23,12 @@ public class LoginControl implements ActionListener
 
 	
 	
-	public VentanaMedico ventanaControlada;
+	public Medico ventanaControlada;
 	public ControladorPrincipal controlPrincipal;
 	
 	
-	public LoginControl (VentanaMedico win, ControladorPrincipal cp)	{
+	//constructor
+	public LoginControl (Medico win, ControladorPrincipal cp)	{
 		ventanaControlada = win;
 		controlPrincipal = cp;
 	}
@@ -34,11 +36,6 @@ public class LoginControl implements ActionListener
 	
 	public void actionPerformed(ActionEvent e) {
 	
-		
-/*		Cambio el cursor por un relog
-		Cursor cur = new Cursor(Cursor.WAIT_CURSOR);
-        ventanaControlada.setCursor(cur);  */      
-
     	String cmd = (String)(e.getActionCommand());
         if (cmd == LoginControl.MODIFICAR) {
         	Login user = (Login)ventanaControlada.usersList.getSelectedItem();
@@ -46,7 +43,6 @@ public class LoginControl implements ActionListener
         	user.contraseña=ventanaControlada.campoApellido.getText();
         	
         	ventanaControlada.usersList.repaint(); //Para que se actualice el cambio en el combo
-        	//controlPrincipal.mf.escribirUsuarios(controlPrincipal.listaUsuarios);
         	ventanaControlada.dispose();
 		} else if (cmd==LoginControl.SELECCIONAR) {
         	Login user = (Login)ventanaControlada.usersList.getSelectedItem();
@@ -56,16 +52,7 @@ public class LoginControl implements ActionListener
 			
 		}
         
-       /* // Dejo el cursor como estaba
-		cur = new Cursor(Cursor.DEFAULT_CURSOR);
-        ventanaControlada.setCursor(cur);        
-    
-    */
    } 
-    
-    public void mostrar(String mensaje)
-	{
-		JOptionPane.showMessageDialog(ventanaControlada, mensaje);	
-	}	
+  
 
 }

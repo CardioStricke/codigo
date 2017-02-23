@@ -1,10 +1,13 @@
 package Vista;
 
 import java.awt.BorderLayout;
-
+import java.awt.*;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -13,14 +16,28 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Control.*;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.GroupLayout;
+import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import java.awt.Color;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
+import javax.swing.UIManager;
+import java.awt.Font;
+import com.sun.awt.AWTUtilities;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 
 public class VentanaPrincipal extends JFrame {
 	
-	private javax.swing.JButton BotonEntrar;
-    private javax.swing.JPasswordField Password;
-    private javax.swing.JButton jButton1;
+	private javax.swing.JButton botonEntrar;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtUsuario;
@@ -28,123 +45,199 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel contentPane;
 	public ControladorPrincipal controlador;
 	public ManejadorDeFicheros mf;
+	private int resulbusca;
+	private javax.swing.JLabel lblCardio;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JLabel lblFondo;
+	ImageIcon imagen;
+	Icon icono;
+	
 	
 	/**
-	 * Launch the application.
+	 * MAIN
 	 */
 	public static void main(String[] args) {
+		  try {
+	            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+	                if ("Nimbus".equals(info.getName())) {
+	                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+	                    break;
+	                }
+	            }
+	        } catch (ClassNotFoundException ex) {
+	            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	        } catch (InstantiationException ex) {
+	            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	        } catch (IllegalAccessException ex) {
+	            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	        }
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
-					frame.setVisible(true);
+					//VentanaPrincipalPrincipal frame = new VentanaPrincipalPrincipal();
+					//frame.setVisible(true);
+					 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					   
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				 new VentanaPrincipal().setVisible(true);
 			}
 		});
 	}
+	private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(525, 535));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(730, 380));
+
+        jPanel1.setOpaque(false);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        jPanel1.setLayout(null);
+		
+		JLabel lblBonito = new JLabel("");
+		lblBonito.setForeground(Color.WHITE);
+		lblBonito.setBackground(Color.WHITE);
+		lblBonito.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\txt_med.png"));
+		lblBonito.setBounds(173, 128, 212, 39);
+		jPanel1.add(lblBonito);
+		txtPassword = new javax.swing.JPasswordField();
+		txtPassword.setBorder(null);
+		txtPassword.setBounds(180, 216, 173, 14);
+		jPanel1.add(txtPassword);
+		
+			txtPassword.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
+					PasswordActionPerformed(evt);
+				}
+			});
+		botonEntrar = new javax.swing.JButton();
+		botonEntrar.setBounds(219, 251, 101, 37);
+		jPanel1.add(botonEntrar);
+		
+				        botonEntrar.setText("Entrar");
+				        
+				        botonEntrar.addActionListener(new java.awt.event.ActionListener() {
+				            public void actionPerformed(java.awt.event.ActionEvent evt) {
+				                BotonEntrarActionPerformed(evt);
+				            }
+				        });
+        
+		//creo la VentanaPrincipal 
+		
+		lblUsuario = new javax.swing.JLabel();
+		lblUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblUsuario.setForeground(Color.WHITE);
+		lblUsuario.setBounds(229, 103, 81, 14);
+		jPanel1.add(lblUsuario);
+		
+			lblUsuario.setText("Usuario");
+			lblContraseña = new javax.swing.JLabel();
+			lblContraseña.setForeground(Color.WHITE);
+			lblContraseña.setFont(new Font("Tahoma", Font.BOLD, 16));
+			lblContraseña.setBounds(219, 172, 111, 14);
+			jPanel1.add(lblContraseña);
+			
+				lblContraseña.setText("Contrase\u00F1a");
+			txtUsuario = new javax.swing.JTextField();
+			txtUsuario.setBorder(null);
+			txtUsuario.setBounds(180, 138, 168, 16);
+			jPanel1.add(txtUsuario);
+			
+				txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(java.awt.event.ActionEvent evt) {
+						txtUsuarioActionPerformed(evt);
+					}
+				});
+			
+			JLabel lblExit = new JLabel("");
+			lblExit.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\cerrar_44.png"));
+			 lblExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
+		            public void mouseClicked(java.awt.event.MouseEvent evt) {
+		                lblExitMouseClicked(evt);
+		            }
+		        });
+		        jPanel1.add(lblExit);
+		        lblExit.setBounds(676, 11, 44, 46);
+			
+			JLabel label = new JLabel("");
+			label.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\txt_med.png"));
+			label.setBounds(173, 196, 197, 50);
+			jPanel1.add(label);
+			
+			lblLogoSlim = new JLabel("");
+			lblLogoSlim.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\logoSlimUem.jpg"));
+			lblLogoSlim.setBounds(195, 32, 138, 46);
+			jPanel1.add(lblLogoSlim);
+		       
+			lblCardio = new javax.swing.JLabel();
+			lblCardio.setBounds(0, 0, 730, 457);
+			
+			        lblCardio.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\cardiofondo.png"));
+			        jPanel1.add(lblCardio);
+
+        pack();
+    }// </editor-fold>                        
+
+	 private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {                                     
+	        // TODO add your handling code here:
+	        System.exit(0);
+	    }             
+	
+	 int x,y;
+	 private JLabel lblLogoSlim;
 	/**
-	 * creo mi interfaz gráfica
+	 * Creo mi interfaz gráfica
 	 */
 	public VentanaPrincipal() {
+		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setForeground(Color.WHITE);
+	
+		this.setResizable(false);//bloquea maximizar
+		setLocationRelativeTo(null);//casi lo pone en el centro
 		
-		        lblUsuario = new javax.swing.JLabel();
-		        lblContraseña = new javax.swing.JLabel();
-		        txtUsuario = new javax.swing.JTextField();
-		        Password = new javax.swing.JPasswordField();
-		        BotonEntrar = new javax.swing.JButton();
-		        jButton1 = new javax.swing.JButton();
-
-		     // Creamos la vista 
-				setSize(600, 600);
-				setTitle("VentanaPrincipal");
+			initComponents();
+	        this.setLocationRelativeTo(null);
+	        AWTUtilities.setWindowOpaque(this, false);
+	        
+	        ImageIcon imagen = new ImageIcon("src/imagenes/logoSlimUem.jpg");
+	        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(lblLogoSlim.getWidth(),lblLogoSlim.getHeight(),Image.SCALE_DEFAULT));
+	        lblLogoSlim.setIcon(icono);
+	        this.repaint();
+	       
+		
+		// Creamos la vista 
+		setTitle("VentanaPrincipalPrincipal");
 				
-		        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-		        lblUsuario.setText("Usuario");
-
-		        lblContraseña.setText("Contraseña:");
-
-		        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
-		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                txtUsuarioActionPerformed(evt);
-		            }
-		        });
-
-		        Password.addActionListener(new java.awt.event.ActionListener() {
-		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                PasswordActionPerformed(evt);
-		            }
-		        });
-
-		        BotonEntrar.setText("Entrar");
-		        BotonEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
-		            public void mouseClicked(java.awt.event.MouseEvent evt) {
-		                BotonEntrarMouseClicked(evt);
-		            }
-		        });
-		        BotonEntrar.addActionListener(new java.awt.event.ActionListener() {
-		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                BotonEntrarActionPerformed(evt);
-		            }
-		        });
-
-		        jButton1.setText("Salir");
-		        jButton1.addActionListener(new java.awt.event.ActionListener() {
-		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton1ActionPerformed(evt);
-		            }
-		        });
-
-		        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		        layout.setHorizontalGroup(
-		        	layout.createParallelGroup(Alignment.LEADING)
-		        		.addGroup(layout.createSequentialGroup()
-		        			.addGap(78)
-		        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-		        				.addComponent(lblContraseña)
-		        				.addComponent(lblUsuario))
-		        			.addGap(18)
-		        			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-		        				.addComponent(txtUsuario)
-		        				.addGroup(layout.createSequentialGroup()
-		        					.addComponent(BotonEntrar)
-		        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-		        					.addComponent(jButton1))
-		        				.addComponent(Password, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
-		        			.addContainerGap(24, Short.MAX_VALUE))
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		        GroupLayout groupLayout = new GroupLayout(getContentPane());
+		        groupLayout.setHorizontalGroup(
+		        	groupLayout.createParallelGroup(Alignment.LEADING)
+		        		.addGap(0, 730, Short.MAX_VALUE)
 		        );
-		        layout.setVerticalGroup(
-		        	layout.createParallelGroup(Alignment.LEADING)
-		        		.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-		        			.addContainerGap(80, Short.MAX_VALUE)
-		        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-		        				.addComponent(lblUsuario)
-		        				.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-		        			.addGap(18)
-		        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-		        				.addComponent(lblContraseña)
-		        				.addComponent(Password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-		        			.addGap(19)
-		        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-		        				.addComponent(BotonEntrar)
-		        				.addComponent(jButton1))
-		        			.addGap(106))
+		        groupLayout.setVerticalGroup(
+		        	groupLayout.createParallelGroup(Alignment.LEADING)
+		        		.addGap(0, 535, Short.MAX_VALUE)
 		        );
-		        getContentPane().setLayout(layout);
+		        getContentPane().setLayout(groupLayout);
+		        getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblContraseña, lblUsuario, txtUsuario, botonEntrar, txtPassword}));
 
 		        pack();
 		    }
 	
 	/*
-	 * 
+	 * Proporciona control a la VentanaPrincipal de control
 	 */
-	public void addController (ControladorPrincipal mc)
-	{
+	public void addController (ControladorPrincipal mc){
 		controlador=mc;
-		
 		
 		addWindowListener(new WindowAdapter()
 		{
@@ -156,73 +249,74 @@ public class VentanaPrincipal extends JFrame {
 		});
 	}
 	
-	public void crearVista ()
-	{
-
-		
+	public void crearVista (){
 		setContentPane(new JDesktopPane());
 		setVisible(true);
 	}
-	
-	
 	private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
     }                                          
-
-    private void BotonEntrarMouseClicked(java.awt.event.MouseEvent evt) {                                         
-        String Usuario = txtUsuario.getText();
-        String Contraseña = String.valueOf(Password.getText());
+    private void BotonEntrarActionPerformed(java.awt.event.ActionEvent evt) {      
+                                      
+    	String usuario = txtUsuario.getText();
+        String contraseña = String.valueOf(txtPassword.getText());
         
-    	// Creo el controlador pasando la ventana
-		ControladorPrincipal cp=new ControladorPrincipal(vp);
+    	// Creo el controlador pasando la VentanaPrincipal
+		ControladorPrincipal cp=new ControladorPrincipal(this);//llamo al propio objeto de esta VentanaPrincipal principal
 		
-        //Leer Usuarios LA HE LIADO***************************************************
+        //Leer Usuarios
  		cp.mf = new ManejadorDeFicheros();
- 		int resulbusca = cp.mf.leerUsuarios("Ethan","Recalde","C:\\Users\\KATY\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
- 		System.out.println("Resultado de buscar en el fichero:"+resulbusca);
- 		
-  
-     }                                        
-
-    private void BotonEntrarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        //Medico MED = new igMedico();
-        //MED.setVisible(true);
-        //dispose();
-    	
+ 		resulbusca = cp.mf.buscaUsuario(txtUsuario.getText(),txtPassword.getText(),"C:\\Users\\KATY\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
+ 		ArrayList<String> pacientes = cp.mf.listaUsuarios("C:\\Users\\KATY\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
+ 		/*if(pacientes == null){
+ 			
+ 			System.out.println("ERROR NULL:");
+ 		}*/
+    	if(resulbusca == 2){
+    		
+    	//clase capaz de encolar eventos de forma asíncrona.
     	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					VentanaPaciente frame = new VentanaPaciente();
 					frame.setVisible(true);
 					frame.toFront();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+    	}
+    	
+    	if(resulbusca == 1){
+    		//
+    		//ArrayList<String> pacientes = new ArrayList<String>();
+    		//pacientes.add("Hola");
+    		EventQueue.invokeLater(new Runnable() {
+    			public void run() {
+    				try {
+    					
+    					
+    					Medico frame = new Medico(pacientes);
+    					frame.setVisible(true);
+    					frame.toFront();
+    						
+    				} catch (Exception e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		});	
+		}
+    	
+    	if(resulbusca == 0){//mensaje de error
+    		JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
+    		
+    	}
         
-// TODO add your handling code here:
-    }                                           
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        System.exit(0);        // TODO add your handling code here:
-    }                                        
-
+    	
+    }//fin accion boton entrar                                           
+    
     private void PasswordActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
     }
-
-	/*    private void BotonInstruccActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        Instrucciones INS = new Instrucciones();
-        INS.setVisible(true);
-        dispose();
-   } */                                            
-
-   /* private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        Informacion INF= new Informacion();
-        INF.setVisible(true);
-        dispose();
-       
-    }  */               
-
-}
+}//fin VentanaPrincipalPrincipal
