@@ -1,0 +1,5 @@
+Ethan;Recalde;medico
+Guillermo;Pringado;medico
+Alex;Pringado;paciente
+Jose;Amarillo;paciente
+Bruno;Strike;paciente

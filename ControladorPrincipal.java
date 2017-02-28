@@ -39,7 +39,7 @@ public class ControladorPrincipal implements ActionListener
     public void abrirVentana(String cmd)
 	{
     	// Creo la ventana para representarlo
-		Medico med = new Medico(null);
+		VentanaMedico med = new VentanaMedico(null);
 
 		// Creo el controlador pasando la ventana
 		LoginControl lc = new LoginControl(med, this);
@@ -59,31 +59,5 @@ public class ControladorPrincipal implements ActionListener
 		System.exit(0);
 	}	
 
-/*	public static void main(String args[])
-	{
-		System.out.println("Starting VentanaPrincipal...");
-		
-		// Leyendo el Properties 
-		Properties appProps = new Properties();
-		
-		try {
-        	FileInputStream in = new FileInputStream("ejemplo.properties");
-    		appProps.load(in);
-        	in.close();
-        	
- 		} catch (Exception e) { System.out.println(e.getMessage()); }
-		
- 		
-		// Creo la ventana
-		VentanaPrincipal vp = new VentanaPrincipal();
-		
-		// Creo el controlador pasando la ventana
-		ControladorPrincipal cp=new ControladorPrincipal(vp);
-		
-		// Le Asociamos el controlador a la ventana
-		vp.addController(cp);
-		vp.crearVista();
-		
-	}
-	*/
+
 }//fin ControladorPrincipal

@@ -23,12 +23,12 @@ public class LoginControl implements ActionListener
 
 	
 	
-	public Medico ventanaControlada;
+	public VentanaMedico ventanaControlada;
 	public ControladorPrincipal controlPrincipal;
 	
 	
 	//constructor
-	public LoginControl (Medico win, ControladorPrincipal cp)	{
+	public LoginControl (VentanaMedico win, ControladorPrincipal cp)	{
 		ventanaControlada = win;
 		controlPrincipal = cp;
 	}

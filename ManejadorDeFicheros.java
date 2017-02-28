@@ -11,11 +11,23 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import Model.*;
+import javax.swing.JLabel;
 
+import Model.*;
+import Vista.*;
+
+/**
+ * @author ethan
+ *
+ */
 public class ManejadorDeFicheros {
 	String fichero;
 	String separador;
+	File archivo;
+	private JLabel lblRellenaNom;
+	private JLabel lblApell;
+	private JLabel lblNº;
+	private JLabel lblFecha;
 
 	public int buscaUsuario(String usuario, String contraseña,String fichero, String separador) {
 		this.fichero = fichero;
@@ -33,7 +45,7 @@ public class ManejadorDeFicheros {
 				if (line != null) {
 					StringTokenizer st = new StringTokenizer(line, separador);//permite separar
 					
-					nuevo = new Login(st.nextToken(), st.nextToken());// usuario;contraseña;id
+					nuevo = new Login(st.nextToken(), st.nextToken());// usuario;contraseña
 					String nombre = st.nextToken();
 					String apellido = st.nextToken();
 					nuevo.setId(st.nextToken());
@@ -61,12 +73,11 @@ public class ManejadorDeFicheros {
 		return 0;
 	}
 	
-	public ArrayList<String> listaUsuarios(String fichero, String separador) {
+	public ArrayList<String[]> listaUsuarios(String fichero, String separador) {
 		this.fichero = fichero;
 		this.separador = separador;
 		File f = new File(fichero);
-		ArrayList<String> resultado = new ArrayList<String>();
-
+		ArrayList<String[]> resultado = new ArrayList<String[]>();
 		
 		String line;
 
@@ -87,7 +98,10 @@ public class ManejadorDeFicheros {
 				
 					
 					if(id.equals("paciente")){
-						resultado.add(nombre + " "+apellidos);
+						String[] nombreApellidos = new String[2];
+						nombreApellidos[0] = nombre;
+						nombreApellidos[1] = apellidos;
+						resultado.add(nombreApellidos);
 					}
 					
 					
@@ -98,9 +112,11 @@ public class ManejadorDeFicheros {
 			System.out.println("ERROR:" + e.getMessage());
 			//solo en caso de que no compile el codigo del try se ejecuta el catch
 		}
-		//no encuentra usuario
-		/*ArrayList<String> pacientes = new ArrayList<String>();
-		pacientes.add("Hola");*/
 		return resultado;
 	}
+	/*
+	private void abrir (){
+     
+		
+	}*/
 }

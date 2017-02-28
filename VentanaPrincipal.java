@@ -7,6 +7,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import javax.swing.JDesktopPane;
@@ -15,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Control.*;
+import Vista.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -104,7 +109,7 @@ public class VentanaPrincipal extends JFrame {
 		JLabel lblBonito = new JLabel("");
 		lblBonito.setForeground(Color.WHITE);
 		lblBonito.setBackground(Color.WHITE);
-		lblBonito.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\txt_med.png"));
+		lblBonito.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\txt_med.png"));
 		lblBonito.setBounds(173, 128, 212, 39);
 		jPanel1.add(lblBonito);
 		txtPassword = new javax.swing.JPasswordField();
@@ -158,7 +163,7 @@ public class VentanaPrincipal extends JFrame {
 				});
 			
 			JLabel lblExit = new JLabel("");
-			lblExit.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\cerrar_44.png"));
+			lblExit.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\cerrar_44.png"));
 			 lblExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
 		            public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -169,19 +174,19 @@ public class VentanaPrincipal extends JFrame {
 		        lblExit.setBounds(676, 11, 44, 46);
 			
 			JLabel label = new JLabel("");
-			label.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\txt_med.png"));
+			label.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\txt_med.png"));
 			label.setBounds(173, 196, 197, 50);
 			jPanel1.add(label);
 			
 			lblLogoSlim = new JLabel("");
-			lblLogoSlim.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\logoSlimUem.jpg"));
+			lblLogoSlim.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\logoSlimUem.jpg"));
 			lblLogoSlim.setBounds(195, 32, 138, 46);
 			jPanel1.add(lblLogoSlim);
 		       
 			lblCardio = new javax.swing.JLabel();
 			lblCardio.setBounds(0, 0, 730, 457);
 			
-			        lblCardio.setIcon(new ImageIcon("C:\\Users\\KATY\\workspace\\CardioStrikee\\src\\Imagenes\\cardiofondo.png"));
+			        lblCardio.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\cardiofondo.png"));
 			        jPanel1.add(lblCardio);
 
         pack();
@@ -265,8 +270,8 @@ public class VentanaPrincipal extends JFrame {
 		
         //Leer Usuarios
  		cp.mf = new ManejadorDeFicheros();
- 		resulbusca = cp.mf.buscaUsuario(txtUsuario.getText(),txtPassword.getText(),"C:\\Users\\KATY\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
- 		ArrayList<String> pacientes = cp.mf.listaUsuarios("C:\\Users\\KATY\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
+ 		resulbusca = cp.mf.buscaUsuario(txtUsuario.getText(),txtPassword.getText(),"C:\\Users\\ethan\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
+ 		ArrayList<String[]> pacientes = cp.mf.listaUsuarios("C:\\Users\\ethan\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
  		/*if(pacientes == null){
  			
  			System.out.println("ERROR NULL:");
@@ -286,35 +291,38 @@ public class VentanaPrincipal extends JFrame {
 					e.printStackTrace();
 				}
 			}
-		});
+		});dispose();
     	}
     	
     	if(resulbusca == 1){
-    		//
-    		//ArrayList<String> pacientes = new ArrayList<String>();
-    		//pacientes.add("Hola");
+    		
+    		
     		EventQueue.invokeLater(new Runnable() {
     			public void run() {
     				try {
     					
+    					VentanaMedico frame = new VentanaMedico(pacientes);
     					
-    					Medico frame = new Medico(pacientes);
     					frame.setVisible(true);
     					frame.toFront();
+    					frame.setTitle("tITULO MEDICO");
     						
     				} catch (Exception e) {
     					e.printStackTrace();
     				}
     			}
-    		});	
+    		});	dispose();
 		}
     	
-    	if(resulbusca == 0){//mensaje de error
-    		JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
-    		
+	    
+	    		if(resulbusca == 0){//mensaje de error
+	    		JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
+	    		
+	    	
+	    	
     	}
         
-    	
+    
     }//fin accion boton entrar                                           
     
     private void PasswordActionPerformed(java.awt.event.ActionEvent evt) {                                         
