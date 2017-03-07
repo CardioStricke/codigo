@@ -11,21 +11,22 @@ import javax.swing.border.EmptyBorder;
 
 import Control.LoginControl;
 
+
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JToolBar;
-import javax.swing.JLayeredPane;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import java.awt.Scrollbar;
 import java.awt.Toolkit;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JScrollPane;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -40,13 +41,12 @@ public class VentanaPaciente extends JFrame {
 	
 	
 	/**
-	 * Creaamos la ventana
+	 * Creamos la ventana
 	 */
-
-	
-	
+  
 	
 	public VentanaPaciente() {
+		 
 		this.setTitle("Paciente");//titulo de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//DISPOSE, al cerrar poder seguir probando logins
 		setBounds(100, 100, 770, 533);
@@ -59,11 +59,7 @@ public class VentanaPaciente extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\alexcebrian368\\Desktop\\CardioStrikee\\src\\CardioStrike\\src\\imagenes\\icono.png"));
 		
 		
-    	//reajuste de logo slim uem
-		ImageIcon imagen = new ImageIcon("src/imagenes/logoSlimUem.jpg");
-        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(lblSlimuem.getWidth(),lblSlimuem.getHeight(),Image.SCALE_DEFAULT));
-        lblSlimuem.setIcon(icono);
-        this.repaint();
+    	
     
 		
 		JPanel panel_1 = new JPanel();
@@ -95,19 +91,41 @@ public class VentanaPaciente extends JFrame {
 		JButton btnAbrirSesion = new JButton("Abrir Sesion");
 		btnAbrirSesion.setBounds(283, 25, 125, 37);
 		panel_1.add(btnAbrirSesion);
+		     
+		
 		
 		JButton btnNuevaSesion = new JButton("Nueva Sesion");
 		btnNuevaSesion.setBounds(442, 25, 125, 37);
 		panel_1.add(btnNuevaSesion);
-		
-		JButton btnConsejos = new JButton("Consejos");
-		btnConsejos.addMouseListener(new MouseAdapter() {
+		btnNuevaSesion.addMouseListener(new MouseAdapter() {
 			@Override
+			
+			//función para que el boton Consejos lleve a la Ventana Consejos
+			
 			public void mouseClicked(MouseEvent arg0) {
+				SubirArchivos sb = new SubirArchivos();
+				sb.setVisible(true);
+				sb.toFront();
+			
 			}
 		});
+		
+		
+		JButton btnConsejos = new JButton("Consejos");
 		btnConsejos.setBounds(595, 25, 125, 37);
 		panel_1.add(btnConsejos);
+		btnConsejos.addMouseListener(new MouseAdapter() {
+			@Override
+			
+			//función para que el boton Consejos lleve a la Ventana Consejos
+			
+			public void mouseClicked(MouseEvent arg0) {
+				VentanaConsejos vc = new VentanaConsejos();
+				vc.setVisible(true);
+				vc.toFront();
+			
+			}
+		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(283, 153, 436, 308);
@@ -115,6 +133,8 @@ public class VentanaPaciente extends JFrame {
 		
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	    
+	    table.setRowHeight(25);
 		scrollPane.setViewportView(table);
 		table.setColumnSelectionAllowed(true);
 		table.setModel(new DefaultTableModel(
@@ -199,6 +219,12 @@ public class VentanaPaciente extends JFrame {
 		lblSlimuem.setIcon(new ImageIcon("C:\\Users\\alexcebrian368\\Desktop\\CardioStrikee\\src\\CardioStrike\\src\\imagenes\\logoSlimUem.jpg"));
 		lblSlimuem.setBounds(20, 402, 225, 59);
 		panel_1.add(lblSlimuem);
+		
+		ImageIcon imagen = new ImageIcon("C:\\Users\\alexcebrian368\\Desktop\\CardioStrikee\\src\\CardioStrike\\src\\imagenes\\logoSlimUem.jpg");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(lblSlimuem.getWidth(),lblSlimuem.getHeight(),Image.SCALE_DEFAULT));
+        lblSlimuem.setIcon(icono);
+        this.repaint();
+    
 		
 		
 	
