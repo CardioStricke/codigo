@@ -100,7 +100,7 @@ public class VentanaPaciente extends JFrame {
 		btnNuevaSesion.addMouseListener(new MouseAdapter() {
 			@Override
 			
-			//función para que el boton Consejos lleve a la Ventana Consejos
+			//función para que el boton Nueva Sesion lleve a Subir Archivos
 			
 			public void mouseClicked(MouseEvent arg0) {
 				SubirArchivos sb = new SubirArchivos();
