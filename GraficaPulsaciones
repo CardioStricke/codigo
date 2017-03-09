@@ -1,0 +1,74 @@
+package Vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.Color;
+
+public class GraficaPulsaciones extends JFrame {
+
+	private JPanel PaneGraficaPulsaciones;
+	private JTextField textRiesgoPulsaciones;
+	private JTextField textMinimoPulsaciones;
+	private JTextField textMaximoPulsaciones;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GraficaPulsaciones frame = new GraficaPulsaciones();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public GraficaPulsaciones() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 735, 486);
+		PaneGraficaPulsaciones = new JPanel();
+		PaneGraficaPulsaciones.setBackground(new Color(224, 255, 255));
+		PaneGraficaPulsaciones.setBorder(null);
+		setContentPane(PaneGraficaPulsaciones);
+		PaneGraficaPulsaciones.setLayout(null);
+		
+		JButton btnComentariosGraficaPulsaciones = new JButton("COMENTARIOS");
+		btnComentariosGraficaPulsaciones.setForeground(new Color(128, 0, 0));
+		btnComentariosGraficaPulsaciones.setBackground(Color.WHITE);
+		btnComentariosGraficaPulsaciones.setBounds(560, 396, 149, 41);
+		PaneGraficaPulsaciones.add(btnComentariosGraficaPulsaciones);
+		
+		textRiesgoPulsaciones = new JTextField();
+		textRiesgoPulsaciones.setBounds(560, 210, 86, 20);
+		PaneGraficaPulsaciones.add(textRiesgoPulsaciones);
+		textRiesgoPulsaciones.setColumns(10);
+		
+		textMinimoPulsaciones = new JTextField();
+		textMinimoPulsaciones.setBounds(560, 153, 86, 20);
+		PaneGraficaPulsaciones.add(textMinimoPulsaciones);
+		textMinimoPulsaciones.setColumns(10);
+		
+		textMaximoPulsaciones = new JTextField();
+		textMaximoPulsaciones.setBounds(560, 92, 86, 20);
+		PaneGraficaPulsaciones.add(textMaximoPulsaciones);
+		textMaximoPulsaciones.setColumns(10);
+		
+		JPanel PGraficaPulsaciones = new JPanel();
+		PGraficaPulsaciones.setBounds(10, 11, 520, 426);
+		PaneGraficaPulsaciones.add(PGraficaPulsaciones);
+	}
+
+}
