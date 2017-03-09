@@ -1,0 +1,68 @@
+package Vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
+public class GraficaVelocidad extends JFrame {
+
+	private JPanel PaneGraficaVelocidad;
+	private JTextField textMinimoVelocidad;
+	private JTextField txtMaximoVelocidad;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GraficaVelocidad frame = new GraficaVelocidad();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public GraficaVelocidad() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 728, 478);
+		PaneGraficaVelocidad = new JPanel();
+		PaneGraficaVelocidad.setBackground(new Color(224, 255, 255));
+		PaneGraficaVelocidad.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(PaneGraficaVelocidad);
+		PaneGraficaVelocidad.setLayout(null);
+		
+		JButton btnComentariosGraficaVelocidad = new JButton("COMENTARIOS");
+		btnComentariosGraficaVelocidad.setForeground(new Color(128, 0, 0));
+		btnComentariosGraficaVelocidad.setBackground(Color.WHITE);
+		btnComentariosGraficaVelocidad.setBounds(568, 383, 134, 46);
+		PaneGraficaVelocidad.add(btnComentariosGraficaVelocidad);
+		
+		textMinimoVelocidad = new JTextField();
+		textMinimoVelocidad.setBounds(568, 192, 119, 20);
+		PaneGraficaVelocidad.add(textMinimoVelocidad);
+		textMinimoVelocidad.setColumns(10);
+		
+		txtMaximoVelocidad = new JTextField();
+		txtMaximoVelocidad.setBounds(568, 125, 119, 20);
+		PaneGraficaVelocidad.add(txtMaximoVelocidad);
+		txtMaximoVelocidad.setColumns(10);
+		
+		JPanel PGraficaVelocidad = new JPanel();
+		PGraficaVelocidad.setBounds(10, 11, 527, 418);
+		PaneGraficaVelocidad.add(PGraficaVelocidad);
+	}
+
+}
