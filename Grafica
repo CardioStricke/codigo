@@ -7,17 +7,30 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextPane;
 
 public class Grafica extends JFrame {
 
 	private JPanel PanePreviaGraficas;
 
-	/**
-	 * Create the frame.
-	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Grafica frame = new Grafica();
+					frame.setVisible(true);
+					frame.toFront();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 	public Grafica() {
 		Grafica frame = new Grafica();
 		frame.setVisible(true);
@@ -31,18 +44,49 @@ public class Grafica extends JFrame {
 		JButton btnO2Sangre = new JButton("O2 SANGRE");
 		btnO2Sangre.setBounds(51, 164, 89, 23);
 		PanePreviaGraficas.add(btnO2Sangre);
+		btnO2Sangre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FreeChartO2 fco2 = new FreeChartO2("");
+				fco2.setVisible(true);
+				fco2.toFront();
+			}
+		});
 		
 		JButton btnPulsaciones = new JButton("PULSACIONES");
 		btnPulsaciones.setBounds(333, 164, 116, 23);
 		PanePreviaGraficas.add(btnPulsaciones);
-		
+		btnPulsaciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FreeChartPulsaciones fcp = new FreeChartPulsaciones("");
+				fcp.setVisible(true);
+				fcp.toFront();
+			}
+		});
+								
 		JButton btnVelocidad = new JButton("VELOCIDAD");
 		btnVelocidad.setBounds(51, 417, 89, 23);
 		PanePreviaGraficas.add(btnVelocidad);
+		btnVelocidad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FreeChartVelocidad fcv = new FreeChartVelocidad("");
+				fcv.setVisible(true);
+				fcv.toFront();	
+			}
+		});
+		
 		
 		JButton btnAltitud = new JButton("ALTITUD");
 		btnAltitud.setBounds(333, 417, 116, 23);
 		PanePreviaGraficas.add(btnAltitud);
+		btnAltitud.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FreeChartAltura fca = new FreeChartAltura("");
+				fca.setVisible(true);
+				fca.toFront();	
+			}
+		});
+		
+		
 		
 		JButton btnComentariosDeLaSesion = new JButton("COMENTARIOS DE LA SESION");
 		btnComentariosDeLaSesion.addActionListener(new ActionListener() {
