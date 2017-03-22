@@ -12,7 +12,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
 
 import Control.LoginControl;
+import Control.ManejadorDeFicheros;
+import Model.GestionDatos;
 import Model.Paciente;
+import Model.Sesion;
+import Model.Tiempo;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -51,15 +55,22 @@ public class VentanaPaciente extends JFrame {
 	private JTextField textApellidos;
 	private JTextField textId;
 	private JTextField textFecha;
+	private Paciente paciente;
+	private File fichero;
+	private DefaultTableModel modelo;
+	private ArrayList<Tiempo> tiempos;
+	private ArrayList<Float> velocidades; 
 	
 	/**
 	 * Creamos la ventana
 	 */
   
 	
-	public VentanaPaciente() {
+	public VentanaPaciente(Paciente paciente) {
+		this.paciente = paciente;
+		
 		setExtendedState(6);
-		this.setTitle("Paciente");//titulo de la ventana
+		this.setTitle(paciente.getNombre()+" "+paciente.getApellidos());//titulo de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//DISPOSE, al cerrar poder seguir probando logins
 		setBounds(100, 100, 770, 533);
 		contentPane = new JPanel();
@@ -71,16 +82,15 @@ public class VentanaPaciente extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\alexcebrian368\\Desktop\\CardioStrikee\\src\\CardioStrike\\src\\imagenes\\icono.png"));
 		
 		
-    	/*
-		textNombre.setText(paciente.getNombre());
-        textApellidos.setText(paciente.getApellidos());
-        textFecha.setText(paciente.getFechaNacimiento());
-		*/
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(Color.BLACK);
 		panel_1.setBounds(0, 0, 1914, 1001);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
+		
+		JButton btnPulsar = new JButton("PULSAr");
+		btnPulsar.setBounds(470, 118, 97, 25);
+		panel_1.add(btnPulsar);
 		
 		JLabel lblBuscar = new JLabel("BUSCAR:");
 		lblBuscar.setForeground(Color.WHITE);
@@ -139,13 +149,13 @@ public class VentanaPaciente extends JFrame {
 		btnNuevaSesion.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnNuevaSesion.setBounds(1057, 162, 256, 75);
 		panel_1.add(btnNuevaSesion);
+
 		btnNuevaSesion.addMouseListener(new MouseAdapter() {
 			@Override
 			
-		
-			
+		     
 			public void mouseClicked(MouseEvent arg0) {
-			     
+				
 			       //Creamos el objeto JFileChooser
 			         JFileChooser fc=new JFileChooser();
 			          
@@ -160,24 +170,23 @@ public class VentanaPaciente extends JFrame {
 			         int seleccion=fc.showOpenDialog(contentPane);
 			          
 			         //Si el usuario, pincha en aceptar
+			         
+			         /*formato nomre fichero sesiones. 
+			          * IdPaciente_IdSesion_Fecha_Hora*/
 			         if(seleccion==JFileChooser.APPROVE_OPTION){
-			          
-			             //Seleccionamos el fichero
-			             File[] ficheros=fc.getSelectedFiles();
-			          
-			             for(int i=0;i<ficheros.length;i++){
-			                 try(FileReader fr=new FileReader(ficheros[i])){
-			                     String cadena="";
-			                     int valor=fr.read();
-			                     while(valor!=-1){
-			                         cadena=cadena+(char)valor;
-			                         valor=fr.read();
-			                     }
-			                     textArea.append(cadena+"\n");
-			                 } catch (IOException e1) {
-			                     e1.printStackTrace();
-			                 }
-			             }
+			        	 fichero=fc.getSelectedFile();
+			        	 ManejadorDeFicheros mf = new ManejadorDeFicheros();
+			        	 ArrayList<Sesion> sesiones = mf.buscaSesiones(fichero);
+			     		 tiempos = GestionDatos.obtenerTiempos(sesiones);
+			     		 
+			     		 velocidades =  GestionDatos.obtenerVelocidades(sesiones);
+			        	 String nombreFichero = fichero.getName();
+			        	 String sesion = "Sesion "+Integer.parseInt(nombreFichero.substring(3,5));
+			        	 String fecha = nombreFichero.substring(6,8)+"/"+ nombreFichero.substring(8, 10)+"/"+nombreFichero.substring(10,14);
+			        	 String hora = nombreFichero.substring(15,17)+":"+ nombreFichero.substring(17,19)+":"+nombreFichero.substring(19,21);
+			        	 modelo.addRow(new Object[]{sesion, fecha, hora});
+			        	 
+			     		 
 			         }
 			  
 			     
@@ -200,8 +209,7 @@ public class VentanaPaciente extends JFrame {
 				vc.setVisible(true);
 				vc.toFront();
 			
-				//VentanaPaciente vp = new VentanaPaciente();
-				//vp.dispose();
+			
 			}
 		});
 		FontUIResource font = new FontUIResource("Verdana", Font.PLAIN, 24);
@@ -212,12 +220,18 @@ public class VentanaPaciente extends JFrame {
 		scrollPane.setBounds(693, 430, 923, 481);
 		panel_1.add(scrollPane);
 		
-		table = new JTable();
+		table = new JTable(){
+			//Evitar que sea editable la tabla
+			 public boolean isCellEditable(int rowIndex, int vColIndex) {
+	             return false;
+	         }
+		  };
+	  
 		table.addMouseListener(new MouseAdapter() {
-			@Override
+	
 			public void mouseClicked(MouseEvent evt) {
 				 if(evt.getClickCount()==2){
-		            	Sesiones frame = new Sesiones();
+		            	VentanaSesiones frame = new VentanaSesiones(tiempos, velocidades);
 						frame.setVisible(true);
 						frame.toFront();
 					}
@@ -228,43 +242,29 @@ public class VentanaPaciente extends JFrame {
 		
 		table.setRowHeight(50);
 		table.setColumnSelectionAllowed(true);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, "Sesion 1", "01/03/2017", "12:00"},
-				{null, "Sesion 2", "02/03/2017", "13:21"},
-				{null, "Sesion 3", "03/03/2017", "12:45"},
-				{null, "Sesion 4", "04/03/2017", "10:15"},
-				{null, "Sesion 5", "05/03/2017", "16:11"},
-				{null, "Sesion 6", "07/03/2017", "17:33"},
-				{null, "Sesion 7", "08/03/2017", "17:55"},
-				{null, "Sesion 8", "09/03/2017", "18:02"},
-				{null, "Sesion 9", "12/03/2017", "12:07"},
-				{null, "Sesion 10", "14/03/2017", "21:14"},
-				{null, "Sesion 11", "15/03/2017", "17:42"},
-				{null, "Sesion 12", "16/03/2017", "16:58"},
-				{null, "Sesion 13", "18/03/2017", "11:25"},
-				{null, "Sesion 14", "19/03/2017", "15:48"},
-				{null, "Sesion 15", "22/03/2017", "22:22"},
-				{null, "Sesion 16", "23/03/2017", "23:19"},
-				{null, "Sesion 17", "25/03/2017", "9:30"},
-				{null, null, null, null},
-			},
-			new String[] {
-				"", "Sesion", "Fecha", "Hora"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Object.class, String.class, String.class, String.class
+		
+		modelo = new DefaultTableModel(
+				new Object[][] {
+					{null, null, null},
+				},
+				new String[] {
+					 "Sesion", "Fecha", "Hora"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					Object.class, String.class, String.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
 			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(54);
+		table.setModel(modelo);
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(190);
 		table.getColumnModel().getColumn(1).setPreferredWidth(190);
 		table.getColumnModel().getColumn(2).setPreferredWidth(190);
-		table.getColumnModel().getColumn(3).setPreferredWidth(190);
-		 table.setRowHeight(70);
+		table.setRowHeight(70);
+		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 30));
         lblNombre.setForeground(Color.WHITE);
@@ -284,10 +284,10 @@ public class VentanaPaciente extends JFrame {
 		lblApellidos.setBounds(25, 548, 141, 49);
 		panel_1.add(lblApellidos);
 		
-		JLabel lblID = new JLabel("ID:");
-		lblID.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		JLabel lblID = new JLabel("N\u00BA Paciente");
+		lblID.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblID.setForeground(Color.WHITE);
-		lblID.setBounds(20, 716, 105, 37);
+		lblID.setBounds(20, 716, 149, 37);
 		panel_1.add(lblID);
 		
 		lblSlimuem = new JLabel("SlimUem");
@@ -300,15 +300,16 @@ public class VentanaPaciente extends JFrame {
         lblSlimuem.setIcon(icono);
         this.repaint();
     
-		
-		
-	
-		
 		JLabel lblFondopantalla = new JLabel("");
 		lblFondopantalla.setBounds(0, 0, 1915, 1002);
 		panel_1.add(lblFondopantalla);
 		lblFondopantalla.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\fondoMedico.jpg"));
 		lblFondopantalla.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		
+		textNombre.setText(paciente.getNombre());
+		textApellidos.setText(paciente.getApellidos());
+		textId.setText(String.valueOf(paciente.getIdPaciente()));
+		textFecha.setText(paciente.getFechaNacimiento());
 	}
 	
 	public void addController (LoginControl lc){
