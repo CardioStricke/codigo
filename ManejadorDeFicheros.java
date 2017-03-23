@@ -1,3 +1,9 @@
+/**
+*Clase manejador de ficheros, donde se lee y se devuelve la informacion de cada fichero
+*@author Ethan Recalde
+*@version 1
+*/
+
 package Control;
 
 import java.io.BufferedWriter;
