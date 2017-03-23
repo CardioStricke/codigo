@@ -32,5 +32,29 @@ public class GestionDatos {
 		}
 		return velocidades;
 	}
+	
 
+	public static ArrayList<Float> obtenerDistancia(ArrayList<Sesion> sesiones){
+		ArrayList<Float> altura = new ArrayList<Float>();
+		for(Sesion s: sesiones){
+			altura.add(new Float(s.getDistancia()));
+		}
+		return altura;
+	}
+	
+	public static ArrayList<Integer> obtenerPulsaciones(ArrayList<Sesion> sesiones){
+		ArrayList<Integer> pulsaciones = new ArrayList<Integer>();
+		for(Sesion s: sesiones){
+			pulsaciones.add(new Integer(s.getPulsaciones()));
+		}
+		return pulsaciones;
+	}
+	
+	public static ArrayList<Integer> obtenerOxigenoSangre(ArrayList<Sesion> sesiones){
+		ArrayList<Integer> sangre = new ArrayList<Integer>();
+		for(Sesion s: sesiones){
+			sangre.add(new Integer(s.getOxigeno()));
+		}
+		return sangre;
+	}
 }
