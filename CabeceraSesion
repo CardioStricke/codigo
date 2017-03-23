@@ -1,5 +1,15 @@
 package Model;
 
+/**
+ * Esta clase contiene los atributos de la cabecera del fichero de la sesion
+ *@author Ethan Recalde
+ *@version 1.0
+ *@param idPaciente numero de identificacion de paciente
+ *@param peso peso del paciente
+ *@param estado estado de animo del paciente
+ *@param comentario "bienvenido"
+ */
+
 public class CabeceraSesion {
 	
 	
@@ -38,12 +48,15 @@ public class CabeceraSesion {
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	@Override
+	
+	/**
+	 * Este metodo muestra los parametros
+	 *@author Ethan Recalde
+	 *@version 1.0
+	 *@return devuelve los valores de los parametros unidos en un string
+	 */
 	public String toString() {
 		return "CabeceraSesion [idPaciente=" + idPaciente + ", peso=" + peso + ", estado=" + estado + ", comentario="
 				+ comentario + "]";
 	}
-	
-	
-
 }
