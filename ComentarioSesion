@@ -1,6 +1,6 @@
 package Vista;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class ComentariosSesion extends JFrame {
 
@@ -35,6 +38,10 @@ public class ComentariosSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public ComentariosSesion() {
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\icono.png"));
+		this.setTitle("Comentarios");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -43,6 +50,7 @@ public class ComentariosSesion extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setForeground(Color.BLACK);
 		panel.setBounds(0, 0, 432, 253);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -53,8 +61,14 @@ public class ComentariosSesion extends JFrame {
 		textField.setColumns(10);
 		
 		JLabel lblComentarios = new JLabel("Comentarios:");
+		lblComentarios.setForeground(Color.WHITE);
 		lblComentarios.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblComentarios.setBounds(34, 48, 134, 23);
 		panel.add(lblComentarios);
+		
+		JLabel lblFondopantalla = new JLabel("fondopantalla");
+		lblFondopantalla.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\fondoMedico.jpg"));
+		lblFondopantalla.setBounds(0, 0, 432, 263);
+		panel.add(lblFondopantalla);
 	}
 }
