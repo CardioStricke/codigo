@@ -42,6 +42,12 @@ import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 import Model.Paciente;
 
+
+/**
+ * Esta clase crea la parte grafica del Login 
+ *@author Ethan Recalde
+ *@version 1.0
+ */
 public class VentanaPrincipal extends JFrame {
 	
 	private javax.swing.JButton botonEntrar;
@@ -65,7 +71,8 @@ public class VentanaPrincipal extends JFrame {
 	
 	
 	/**
-	 * MAIN
+	 *Main del programa, mayormente generado al utilizar windows builder y pasar el codigo de netbeans
+	 *@author Ethan Recalde
 	 */
 	public static void main(String[] args) {
 		  try {
@@ -139,7 +146,7 @@ public class VentanaPrincipal extends JFrame {
 				            }
 				        });
         
-		//creo la VentanaPrincipal 
+		//VentanaPrincipal 
 		
 		lblUsuario = new javax.swing.JLabel();
 		lblUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -195,17 +202,14 @@ public class VentanaPrincipal extends JFrame {
 			        jPanel1.add(lblCardio);
 
         pack();
-    }// </editor-fold>                        
+    }//fin initComponents                       
 
 	 private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {                                     
-	        // TODO add your handling code here:
 	        System.exit(0);
 	    }             
 	
 	
-	/**
-	 * Creo mi interfaz gráfica
-	 */
+	//interfaz grafica
 	public VentanaPrincipal() {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setForeground(Color.WHITE);
@@ -223,7 +227,7 @@ public class VentanaPrincipal extends JFrame {
 	        this.repaint();
 	       
 		
-		// Creamos la vista 
+		//vista
 		setTitle("VentanaPrincipalPrincipal");
 				
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -242,9 +246,7 @@ public class VentanaPrincipal extends JFrame {
 		        pack();
 		    }
 	
-	/*
-	 * Proporciona control a la VentanaPrincipal de control
-	 */
+	//controlador
 	public void addController (ControladorPrincipal mc){
 		controlador=mc;
 		
@@ -275,12 +277,8 @@ public class VentanaPrincipal extends JFrame {
         //Leer Usuarios
  		cp.mf = new ManejadorDeFicheros();
  		resulbusca = cp.mf.buscaUsuario(txtUsuario.getText(),txtPassword.getText(),"C:\\Users\\ethan\\workspace\\CardioStrikee\\Data\\login.txt", ";");
- 		//ArrayList<String[]> pacientes = cp.mf.listaUsuarios("C:\\Users\\ethan\\workspace\\CardioStrikee\\Data\\login.txt", ";");
- 		//Medico medico = cp.mf.buscaMedicoLogin(String fichero, String idLogin);
- 		/*if(pacientes == null){
  			
- 			System.out.println("ERROR NULL:");
- 		}*/
+ 		
     	if(resulbusca instanceof Paciente){
     		
     	//clase capaz de encolar eventos de forma asíncrona.
