@@ -1,4 +1,12 @@
 package Model;
+/**
+ * Esta clase contiene y define la info relativa al tiempo (horas , minutos y segundos)
+ *@author Bruno Matiacci
+ *@version 1.0
+ *@param horas hora de la sesión
+ *@param minutos minuto de la sesión
+ *@param segundos segundo de la sesion
+ */
 
 public class Tiempo {
 	private int horas;
@@ -44,7 +52,12 @@ public class Tiempo {
 	}
 
 
-	@Override
+	/**
+	 * Este método muestra los parámetros
+	 *@author Bruno Matiacci
+	 *@version 1.0
+	 *@return devuelve los valores concretos de los párametros unidos en un string (hora,minuto,segundo)
+	 */
 	public String toString() {
 		return "Tiempo [horas=" + horas + ", minutos=" + minutos + ", segundos=" + segundos + "]";
 	}
