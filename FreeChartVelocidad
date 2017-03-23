@@ -33,23 +33,26 @@ import Model.Tiempo;
  */
 public class FreeChartVelocidad extends ApplicationFrame {
 	
+	/**
+	 * Parametros de la grafica FreeChartVelocidad
+	 * @param tiempos
+	 * @param velocidades
+	 * */
 	private static ArrayList<Tiempo>tiempos;
 	private static ArrayList<Float> velocidades;
 	
     private static final long serialVersionUID = 1L;
 
     {
-        // set a theme using the new shadow generator feature available in
-        // 1.0.14 - for backwards compatibility it is not enabled by default
-        ChartFactory.setChartTheme(new StandardChartTheme("JFree/Shadow",
+    	ChartFactory.setChartTheme(new StandardChartTheme("JFree/Shadow",
                 true));
     }
 
     /**
-     * A demonstration application showing how to create a simple time series
-     * chart.  This example uses monthly data.
-     *
-     * @param title  the frame title.
+     *Constructor 
+     * @param title 
+     * @param tiempos
+     * @param velocidades
      */
     public FreeChartVelocidad(String title, ArrayList<Tiempo> tiempos, ArrayList<Float> velocidades) {
         
@@ -65,10 +68,9 @@ public class FreeChartVelocidad extends ApplicationFrame {
     }
 
     /**
-     * Creates a chart.
-     *
-     * @param dataset  a dataset.
-     *
+     * Creamos un chart.
+     * Le damos las caracteristicas de la grafica aqui
+     * @param dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
@@ -109,29 +111,37 @@ public class FreeChartVelocidad extends ApplicationFrame {
     }
 
     /**
-     * Creates a dataset, consisting of two series of monthly data.
-     *
+     * Metodo creaamos dataset
+     * Asiganamos a seria1 los datos para ser representada
      * @return The dataset.
      */
     private static XYDataset createDataset() {
+    	//Titulo 
     	XYSeries serie1 = new XYSeries("Velocidad en la sesion");
-    	
+    	//inicamos los segundos en cero ya que empiza desde ese tiempo
     	int segundos = 0;
+    	//asignamos a la seria los segundos(0) y la velocidad(0.0)
     	serie1.add(segundos, 0.0);
+    	//Buscamos en el array de tiempos empezando desde la posicion 1
     	for(int i = 1; i < tiempos.size(); i++){
+    		//tiempo anterior - tiempo actual = tiempo transcurrido
+    		// si ocurre esto significa que todavia no ha pasado de minuto
     		if(tiempos.get(i-1).getSegundos() < tiempos.get(i).getSegundos()){
     			segundos+=tiempos.get(i-1).getSegundos() - tiempos.get(i).getSegundos();
     		}else{
+    			//si no se cumple quiere decir que estamos en un minuto nuevo
     			segundos+=60-tiempos.get(i-1).getSegundos()+tiempos.get(i).getSegundos();
     		}
+    		//añadimos los datos 
     		serie1.add(segundos, velocidades.get(i).doubleValue());
     		
     	}
 		
 		
 
-		
+		//Se crea el modelo de la grafica
 		XYSeriesCollection collection = new XYSeriesCollection();
+		//se le añade la serie1 con los datos de velocidad y tiempo
 		collection.addSeries(serie1);
         
 
@@ -140,8 +150,7 @@ public class FreeChartVelocidad extends ApplicationFrame {
     }
 
     /**
-     * Creates a panel for the demo (used by SuperDemo.java).
-     *
+     * Se crea el panel con el zoom y la accion ed mouse
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
