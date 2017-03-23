@@ -1,0 +1,151 @@
+package Model;
+
+public class Sesion {
+	private Tiempo tiempo;
+	private float latitud;
+	private float longitud;
+	private float altitud;
+	private float velocidad;
+	private float distancia;
+	private int pulsaciones;
+	private int oxigeno;
+	
+	
+
+
+	public Sesion(Tiempo tiempo, float latitud, float longitud, float altitud, float velocidad, float distancia,
+			int pulsaciones, int oxigeno) {
+		super();
+		this.tiempo = tiempo;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.altitud = altitud;
+		this.velocidad = velocidad;
+		this.distancia = distancia;
+		this.pulsaciones = pulsaciones;
+		this.oxigeno = oxigeno;
+	}
+
+
+
+
+	public Tiempo getTiempo() {
+		return tiempo;
+	}
+
+
+
+
+	public void setTiempo(Tiempo tiempo) {
+		this.tiempo = tiempo;
+	}
+
+
+
+
+	public float getLatitud() {
+		return latitud;
+	}
+
+
+
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+
+
+
+
+	public float getLongitud() {
+		return longitud;
+	}
+
+
+
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
+	}
+
+
+
+
+	public float getAltitud() {
+		return altitud;
+	}
+
+
+
+
+	public void setAltitud(float altitud) {
+		this.altitud = altitud;
+	}
+
+
+
+
+	public float getVelocidad() {
+		return velocidad;
+	}
+
+
+
+
+	public void setVelocidad(float velocidad) {
+		this.velocidad = velocidad;
+	}
+
+
+
+
+	public float getDistancia() {
+		return distancia;
+	}
+
+
+
+
+	public void setDistancia(float distancia) {
+		this.distancia = distancia;
+	}
+
+
+
+
+	public int getPulsaciones() {
+		return pulsaciones;
+	}
+
+
+
+
+	public void setPulsaciones(int pulsaciones) {
+		this.pulsaciones = pulsaciones;
+	}
+
+
+
+
+	public int getOxigeno() {
+		return oxigeno;
+	}
+
+
+
+
+	public void setOxigeno(int oxigeno) {
+		this.oxigeno = oxigeno;
+	}
+
+
+
+
+	public String toString() {
+		return "Sesion [tiempo=" + tiempo + ", latitud=" + latitud + ", longitud=" + longitud + ", altitud=" + altitud
+				+ ", velocidad=" + velocidad + ", distancia=" + distancia + ", pulsaciones=" + pulsaciones
+				+ ", oxigeno=" + oxigeno + "]";
+	}
+	
+	
+}
