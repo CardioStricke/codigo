@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import javax.swing.plaf.FontUIResource;
 import Control.LoginControl;
 import Control.ManejadorDeFicheros;
 import Model.GestionDatos;
+import Model.Medico;
 import Model.Paciente;
 import Model.Sesion;
 import Model.Tiempo;
@@ -24,6 +26,7 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -43,11 +46,6 @@ import javax.swing.JScrollPane;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-/**
-*
-* @author Alejandro Cebrian
-*/
-
 public class VentanaPaciente extends JFrame {
 
 	private JPanel contentPane;
@@ -63,8 +61,12 @@ public class VentanaPaciente extends JFrame {
 	private Paciente paciente;
 	private File fichero;
 	private DefaultTableModel modelo;
+	
 	private ArrayList<Tiempo> tiempos;
 	private ArrayList<Float> velocidades; 
+	private ArrayList<Float> altura; 
+	private ArrayList<Integer> pulsaciones; 
+	private ArrayList<Integer> sangre; 
 	
 	/**
 	 * Creamos la ventana
@@ -76,7 +78,7 @@ public class VentanaPaciente extends JFrame {
 		
 		setExtendedState(6);
 		this.setTitle(paciente.getNombre()+" "+paciente.getApellidos());//titulo de la ventana
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//DISPOSE, al cerrar poder seguir probando logins
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//DISPOSE, al cerrar poder seguir probando logins
 		setBounds(100, 100, 770, 533);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,16 +86,20 @@ public class VentanaPaciente extends JFrame {
 		contentPane.setLayout(null);
 		
 		//logo cardio strike
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\alexcebrian368\\Desktop\\CardioStrikee\\src\\CardioStrike\\src\\imagenes\\icono.png"));
-		
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\icono.png"));
+		initComponents();
+		}
+	
+	
+		private void initComponents() {
+			
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(Color.BLACK);
 		panel_1.setBounds(0, 0, 1914, 1001);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnPulsar = new JButton("PULSAr");
+		JButton btnPulsar = new JButton("PULSAR");
 		btnPulsar.setBounds(470, 118, 97, 25);
 		panel_1.add(btnPulsar);
 		
@@ -134,6 +140,12 @@ public class VentanaPaciente extends JFrame {
 		textFecha.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addMouseListener(new MouseAdapter() {
+		
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
 		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnBuscar.setBounds(1385, 349, 231, 49);
 		panel_1.add(btnBuscar);
@@ -142,17 +154,12 @@ public class VentanaPaciente extends JFrame {
 		txtBuscador.setBounds(1028, 358, 285, 45);
 		panel_1.add(txtBuscador);
 		txtBuscador.setColumns(10);
-		
-		JButton btnAbrirSesion = new JButton("Abrir Sesion");
-		btnAbrirSesion.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnAbrirSesion.setBounds(693, 162, 265, 75);
-		panel_1.add(btnAbrirSesion);
 		     
 		
 		
 		JButton btnNuevaSesion = new JButton("Nueva Sesion");
 		btnNuevaSesion.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnNuevaSesion.setBounds(1057, 162, 256, 75);
+		btnNuevaSesion.setBounds(885, 162, 256, 75);
 		panel_1.add(btnNuevaSesion);
 
 		btnNuevaSesion.addMouseListener(new MouseAdapter() {
@@ -182,31 +189,38 @@ public class VentanaPaciente extends JFrame {
 			        	 fichero=fc.getSelectedFile();
 			        	 ManejadorDeFicheros mf = new ManejadorDeFicheros();
 			        	 ArrayList<Sesion> sesiones = mf.buscaSesiones(fichero);
+			        	 
 			     		 tiempos = GestionDatos.obtenerTiempos(sesiones);
-			     		 
+			     		 pulsaciones = GestionDatos.obtenerPulsaciones(sesiones); 
+			     		 altura = GestionDatos.obtenerDistancia(sesiones);
+			     		 sangre = GestionDatos.obtenerOxigenoSangre(sesiones);
 			     		 velocidades =  GestionDatos.obtenerVelocidades(sesiones);
-			        	 String nombreFichero = fichero.getName();
+			        	
+			     		
+			     		 String nombreFichero = fichero.getName();
 			        	 String sesion = "Sesion "+Integer.parseInt(nombreFichero.substring(3,5));
 			        	 String fecha = nombreFichero.substring(6,8)+"/"+ nombreFichero.substring(8, 10)+"/"+nombreFichero.substring(10,14);
 			        	 String hora = nombreFichero.substring(15,17)+":"+ nombreFichero.substring(17,19)+":"+nombreFichero.substring(19,21);
+			        	
+			        	 if(sesion.equals(sesion)){
 			        	 modelo.addRow(new Object[]{sesion, fecha, hora});
-			        	 
+			        
+			        	  }else{
+			        	 JOptionPane.showMessageDialog(null,"Esta sesion ya esta subida"); 
+			        	 }
 			     		 
 			         }
 			  
-			     
-			 
 			}
 		});
 		
 		
 		JButton btnConsejos = new JButton("Consejos");
 		btnConsejos.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnConsejos.setBounds(1385, 162, 240, 75);
+		btnConsejos.setBounds(1272, 162, 240, 75);
 		panel_1.add(btnConsejos);
 		btnConsejos.addMouseListener(new MouseAdapter() {
-			@Override
-			
+		
 			//función para que el boton Consejos lleve a la Ventana Consejos
 			
 			public void mouseClicked(MouseEvent arg0) {
@@ -236,7 +250,7 @@ public class VentanaPaciente extends JFrame {
 	
 			public void mouseClicked(MouseEvent evt) {
 				 if(evt.getClickCount()==2){
-		            	VentanaSesiones frame = new VentanaSesiones(tiempos, velocidades);
+		            	VentanaSesiones frame = new VentanaSesiones(tiempos, velocidades,altura,pulsaciones,sangre);
 						frame.setVisible(true);
 						frame.toFront();
 					}
@@ -297,7 +311,7 @@ public class VentanaPaciente extends JFrame {
 		
 		lblSlimuem = new JLabel("SlimUem");
 		lblSlimuem.setIcon(new ImageIcon("C:\\Users\\alexcebrian368\\Desktop\\CardioStrikee\\src\\CardioStrike\\src\\imagenes\\logoSlimUem.jpg"));
-		lblSlimuem.setBounds(20, 402, 225, 59);
+		lblSlimuem.setBounds(693, 53, 225, 59);
 		panel_1.add(lblSlimuem);
 		
 		ImageIcon imagen = new ImageIcon("C:\\Users\\alexcebrian368\\Desktop\\CardioStrikee\\src\\CardioStrike\\src\\imagenes\\logoSlimUem.jpg");
