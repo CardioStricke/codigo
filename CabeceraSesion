@@ -1,0 +1,49 @@
+package Model;
+
+public class CabeceraSesion {
+	
+	
+	private int idPaciente;
+	private float peso;
+	private String estado;
+	private String comentario;
+	public CabeceraSesion(int idPaciente, float peso, String estado, String comentario) {
+		super();
+		this.idPaciente = idPaciente;
+		this.peso = peso;
+		this.estado = estado;
+		this.comentario = comentario;
+	}
+	public int getIdPaciente() {
+		return idPaciente;
+	}
+	public void setIdPaciente(int idPaciente) {
+		this.idPaciente = idPaciente;
+	}
+	public float getPeso() {
+		return peso;
+	}
+	public void setPeso(float peso) {
+		this.peso = peso;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public String getComentario() {
+		return comentario;
+	}
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+	@Override
+	public String toString() {
+		return "CabeceraSesion [idPaciente=" + idPaciente + ", peso=" + peso + ", estado=" + estado + ", comentario="
+				+ comentario + "]";
+	}
+	
+	
+
+}
