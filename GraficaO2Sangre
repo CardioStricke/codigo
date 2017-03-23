@@ -31,7 +31,7 @@ import Model.Tiempo;
  * used, except that the renderer is modified to show filled shapes (as well as
  * lines) at each data point.
  */
-public class GraficaO2Sangre extends ApplicationFrame {
+public class FreeChartO2 extends ApplicationFrame {
 
 	private static ArrayList<Tiempo>tiempos;
 	private static ArrayList<Integer> sangre;
@@ -51,7 +51,7 @@ public class GraficaO2Sangre extends ApplicationFrame {
      *
      * @param title  the frame title.
      */
-    public GraficaO2Sangre(String title,ArrayList<Tiempo>tiempos,ArrayList<Integer> sangre) {
+    public FreeChartO2(String title,ArrayList<Tiempo>tiempos,ArrayList<Integer> sangre) {
         super(title);
         this.tiempos= tiempos;
         this.sangre=sangre;
