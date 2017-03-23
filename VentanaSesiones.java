@@ -167,7 +167,7 @@ public class VentanaSesiones extends JFrame {
 		JLabel lblVelocidad = new JLabel("");
 		lblVelocidad.setBounds(0, 50, 540, 290);
 		VentanaSesionesVelocidad.add(lblVelocidad);
-		lblVelocidad.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\Grafica.jpg"));
+		lblVelocidad.setIcon(new ImageIcon("src/Imagenes/Grafica.jpg"));
 		
 		
 		//Foto grafica reajsutada al tamaño
