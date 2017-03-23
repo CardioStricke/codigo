@@ -29,6 +29,7 @@ public class VentanaComentarios extends JFrame {
 	 * @author Alejandro Cebrian
 	 * @param panel se crea la ventana 
 	 * @param lblcomentarios Jlabel en el que se imprimen los comentarios
+	 * @param lblFondopantalla para colocar el color del fondo
 	 */
 	public VentanaComentarios() {
 		
