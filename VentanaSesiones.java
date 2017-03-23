@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import Control.FreeChartAltura;
 import Control.FreeChartPulsaciones;
 import Control.FreeChartVelocidad;
-import Control.GraficaO2Sangre;
+import Control.FreeChartO2;
 
 import javax.swing.JButton;
 
@@ -33,20 +33,21 @@ public class VentanaSesiones extends JFrame {
 	private JPanel PanePreviaVentanaSesioness;
 	private ArrayList<Tiempo> tiempos;
 	private ArrayList<Float> velocidades;
-
-	/*public static void main(String[]args){
-		try{
-			VentanaSesiones vs = new VentanaSesiones();
-			vs.setVisible(true);
-			vs.toFront();
-		}catch(NullPointerException e){
-			System.out.print(e.getMessage());
-		}
-	}*/
+	private ArrayList<Float> altura; 
+	private ArrayList<Integer> pulsaciones; 
+	private ArrayList<Integer> sangre; 
 	
-	public VentanaSesiones(ArrayList<Tiempo> tiempos, ArrayList<Float> velocidades) {
+	
+	
+	public VentanaSesiones(ArrayList<Tiempo> tiempos, ArrayList<Float> velocidades,ArrayList<Float> altura,
+		ArrayList<Integer> pulsaciones,	ArrayList<Integer> sangre) {
+		
 		this.tiempos = tiempos;
 		this.velocidades = velocidades;
+		this.altura=altura;
+		this.pulsaciones=pulsaciones;
+		this.sangre=sangre;
+		
 		initComponents();
 		
 	}	
@@ -68,7 +69,7 @@ public class VentanaSesiones extends JFrame {
 		PanePreviaVentanaSesioness.add(btnO2Sangre);
 		btnO2Sangre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				GraficaO2Sangre fco2 = new GraficaO2Sangre("");
+				FreeChartO2 fco2 = new FreeChartO2("",tiempos,sangre);
 				fco2.setVisible(true);
 				
 			}
@@ -79,7 +80,7 @@ public class VentanaSesiones extends JFrame {
 		PanePreviaVentanaSesioness.add(btnPulsaciones);
 		btnPulsaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FreeChartPulsaciones fcp = new FreeChartPulsaciones("");
+				FreeChartPulsaciones fcp = new FreeChartPulsaciones("",tiempos,pulsaciones);
 				fcp.setVisible(true);
 				fcp.toFront();
 				
@@ -104,7 +105,7 @@ public class VentanaSesiones extends JFrame {
 		PanePreviaVentanaSesioness.add(btnAltitud);
 		btnAltitud.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FreeChartAltura fca = new FreeChartAltura("");
+				FreeChartAltura fca = new FreeChartAltura("",tiempos,altura);
 				fca.setVisible(true);
 				fca.toFront();	
 			
@@ -115,6 +116,9 @@ public class VentanaSesiones extends JFrame {
 		JButton btnComentariosDeLaSesion = new JButton("COMENTARIOS DE LA SESION");
 		btnComentariosDeLaSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VentanaComentarios cs= new VentanaComentarios();
+				cs.setVisible(true);
+				cs.toFront();
 			}
 		});
 		btnComentariosDeLaSesion.setBounds(653, 372, 207, 78);
