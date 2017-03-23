@@ -1,6 +1,22 @@
 package Model;
 
+/**
+ * Esta clase contiene y define la info relativa a la sesion 
+ *@author Bruno Matiacci
+ *@version 1.0
+ * Siguiendo el orden del fichero :
+ *@param tiempo tiempo de la sesión (objeto de clase tiempo con horas minutos y segundos)
+ *@param latitud latitud de la sesión (coordenadas)
+ *@param longitud longitud de la sesión (coordenadas)
+ *@param altitud altitud de la sesión (coordenadas)
+ *@param velocidad velocidad del paciente en la sesión
+ *@param distancia distancia recorrida por el paciente en la sesión
+ *@param pulsaciones pulsaciones concretas del paciente en la sesión
+ *@param oxigeno proporcion de oxigeno en sangre del paciente en la sesión
+ */
+ 
 public class Sesion {
+
 	private Tiempo tiempo;
 	private float latitud;
 	private float longitud;
@@ -11,7 +27,6 @@ public class Sesion {
 	private int oxigeno;
 	
 	
-
 
 	public Sesion(Tiempo tiempo, float latitud, float longitud, float altitud, float velocidad, float distancia,
 			int pulsaciones, int oxigeno) {
@@ -139,7 +154,12 @@ public class Sesion {
 	}
 
 
-
+	/**
+	 * Este método muestra los parámetros de sesión
+	 *@author Bruno Matiacci
+	 *@version 1.0
+	 *@return devuelve los valores concretos de los párametros unidos en un string (tiempo, latitud ,longitud ,altitud ,velocidad,distancia ,pulsaciones ,oxigeno)
+	 */
 
 	public String toString() {
 		return "Sesion [tiempo=" + tiempo + ", latitud=" + latitud + ", longitud=" + longitud + ", altitud=" + altitud
