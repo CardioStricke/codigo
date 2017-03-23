@@ -43,6 +43,11 @@ import javax.swing.JScrollPane;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+/**
+*
+* @author Alejandro Cebrian
+*/
+
 public class VentanaPaciente extends JFrame {
 
 	private JPanel contentPane;
