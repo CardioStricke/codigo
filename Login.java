@@ -3,41 +3,60 @@ package Model;
 
 public class Login {
 
+	public String idLogin;
 	public String usuario;
-	public String contrase�a;
-	public String id;
+	public String contraseña;
+	public String tipoUsuario;
+	
 	
 	/**
+	 * Constructor al que le paso solo usuario y contraseña
 	 * @param usuario
-	 * @param contrase�a
+	 * @param contraseña
 	 * @param id
 	 */
-	public Login(String usuario, String contrase�a) {
+	public Login(String usuario, String contraseña) {
 		this.usuario = usuario;
-		this.contrase�a = contrase�a;
+		this.contraseña = contraseña;
 		
 	}
+
+	
 	/**
+	 * Constructor que le paso ya todos los valores 
+	 * @param idLogin
 	 * @param usuario
-	 * @param contrase�a
-	 * @param id
-	 */
-	public Login(String usuario, String contrase�a, String id) {
+	 * @param contraseña
+	 * @param tipoUsuario
+	 * */
+	public Login(String idLogin, String usuario, String contraseña, String tipoUsuario) {
+		super();
+		this.idLogin = idLogin;
 		this.usuario = usuario;
-		this.contrase�a = contrase�a;
-		this.id=id;
+		this.contraseña = contraseña;
+		this.tipoUsuario = tipoUsuario;
 	}
+
+
+
 	
-	
-	public String getId() {
-		return id;
+	public String getTipoUsuario() {
+		return tipoUsuario;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
+
+
+	/**
+	 * Mostramos parametros con toString
+	 * */
 	public String toString() {
 		
-		return id + usuario+" "+contrase�a;
+		return tipoUsuario + usuario+" "+contraseña;
 	}
 	
 }
