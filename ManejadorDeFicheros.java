@@ -29,6 +29,8 @@ public class ManejadorDeFicheros {
 	private JLabel lblApell;
 	private JLabel lblNº;
 	private JLabel lblFecha;
+	private final int PRIMERASESION = 5;
+	private final int LINEASCABECERA = 4;
 
 	public Object buscaUsuario(String usuario, String contraseña,String fichero, String separador) {
 		this.fichero = fichero;
@@ -240,20 +242,92 @@ public class ManejadorDeFicheros {
 		}
 		return resultado;
 	}
-	/*
-	private void abrir (){
-		FileReader fr = new FileReader("datos.txt");
-			
-
-		BufferedReader bf = new BufferedReader(new FileReader("infoMedico.txt"));
-		
-		while((sCadena = bf.readLine())!=null) {
-			for(int i=0;i<sCadena.size();i++){
-				if(sCadena = "Nombre:"){
-					lblRellenaNom = nombre;
-				}
-			}
-		}
-	*/	
 	
+	public ArrayList<Sesion> buscaSesiones(File f) {
+		
+		this.separador = ";";
+		
+		ArrayList<Sesion> sesiones = new ArrayList<Sesion>();
+		
+		
+		String line;
+		int cont = 0;
+
+		try {
+			BufferedReader lector = new BufferedReader(new FileReader(f));
+			do {
+				line = lector.readLine();
+				
+				cont++;
+				if (line != null && cont>=PRIMERASESION) {
+					StringTokenizer st = new StringTokenizer(line, separador);//permite separar
+					
+					String t = st.nextToken();
+					Tiempo tiempo = new Tiempo(Integer.parseInt(t.substring(0,2)), Integer.parseInt(t.substring(3,5)), Integer.parseInt(t.substring(6)));
+					String latitud= st.nextToken();
+					String longitud = st.nextToken();
+					String altitud = st.nextToken();
+					String velocidad = st.nextToken();
+					String distancia= st.nextToken();
+					String pulsaciones= st.nextToken();
+					String oxigeno= st.nextToken();
+					Sesion s = new Sesion(tiempo, Float.parseFloat(latitud), Float.parseFloat(longitud), Float.parseFloat(altitud), 
+							Float.parseFloat(velocidad),Float.parseFloat(distancia), Integer.parseInt(pulsaciones), Integer.parseInt(oxigeno));
+					System.out.println(s);
+					sesiones.add(s);
+				}
+				
+			} while (line != null);
+		} catch (Exception e) {
+			System.out.println("ERROR:" + e.getMessage());
+			//solo en caso de que no compile el codigo del try se ejecuta el catch
+		}
+		return sesiones;
+	}
+
+	public CabeceraSesion devolverCabecera(String fichero){
+		this.fichero = fichero;
+		File f = new File(fichero);
+		
+		String line;
+		int cont = 0;
+		int idPaciente=0;
+		float peso=0;
+		String estado="";
+		String comentario="";
+
+		try {
+			BufferedReader lector = new BufferedReader(new FileReader(f));
+			do {
+				line = lector.readLine();
+				cont++;
+				
+				if (line != null){
+					switch(cont){
+					case 1: 
+						idPaciente = Integer.parseInt(line);
+						break;
+					case 2: 
+						peso = Float.parseFloat(line);
+						break;
+					case 3: 
+						estado = line;
+						break;
+					case 4: 
+						comentario = line;
+						break;
+					}
+				}
+			} while (line != null && cont < PRIMERASESION);
+			
+		} catch (Exception e) {
+			System.out.println("ERROR:" + e.getMessage());
+			
+			//solo en caso de que no compile el codigo del try se ejecuta el catch
+		}	
+		CabeceraSesion c = new CabeceraSesion(idPaciente, peso, estado, comentario);
+		System.out.println(c);
+		return c;
+		
+	}
 }
