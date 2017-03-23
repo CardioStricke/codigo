@@ -1,18 +1,21 @@
 package Model;
+/**
+ * Esta clase contiene y define la info relativa al paciente 
+ *@author Bruno Matiacci
+ *@version 1.0
+ * Siguiendo el orden del fichero : 
+ *@param idPaciente codigo de paciente
+ *@param nombre nombre del paciente
+ *@param apellidos apelidos del paciente
+ *@param fecha fecha de nacimiento del paciente
+ *@param peso peso del paciente
+ *@param altura altura del paciente
+ *@param imc indice de masa corporal del paciente
+ *@param idMedico codigo de medico 
+ */
 
 public class Paciente {
 	
-	/*En el fichero el orden es: 
-	 * idPaciente
-	 * nombre
-	 * apellidos
-	 * fecha
-	 * peso
-	 * altura
-	 * imc
-	 * idUsuario -> en el fichero de login
-	 * idMedico
-	 * */
 	private int idPaciente;
 	private String nombre;
 	private String apellidos;
