@@ -114,7 +114,7 @@ public class FreeChartVelocidad extends ApplicationFrame {
      * @return The dataset.
      */
     private static XYDataset createDataset() {
-    	XYSeries serie1 = new XYSeries("Fernando Alonso");
+    	XYSeries serie1 = new XYSeries("Velocidad en la sesion");
     	
     	int segundos = 0;
     	serie1.add(segundos, 0.0);
