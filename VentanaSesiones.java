@@ -1,3 +1,4 @@
+
 package Vista;
 
 import java.awt.BorderLayout;
@@ -28,6 +29,19 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.Color;
 
+
+/**
+ * Esta clase crea una ventana en la que se pueden abrir tanto las graficas de la sesion como los comentarios de la sesion
+ *@author Guillermo Roiguez
+ *@author Ethan Recalde
+ *@parameter JPanel crea el panel de la ventana
+ *@parameter tiempos array de tiempos en la sesion
+ *@parameter velocidades array de velocidades en la sesion
+ *@parameter altura array de alturas en la sesion
+ *@parameter pulsaciones array de pulsaciones en la sesion
+ *@parameter sangre array de eneteros (o2 sangre) en la sesion
+ *@version 2.0
+ */
 public class VentanaSesiones extends JFrame {
 
 	private JPanel PanePreviaVentanaSesioness;
@@ -52,10 +66,16 @@ public class VentanaSesiones extends JFrame {
 		
 	}	
 	
+	/**
+	 * Este metodo contiene la parte grafica de la ventana sesiones (botones, imagenes, etc)
+	 *@author Guillermo Roiguez
+	 *@author Ethan Recalde
+	 *@version 2.0
+	 */
 	private void initComponents() {
-		setExtendedState(6);
-		setTitle("SESIONES");
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setExtendedState(6);//tamaño maximo
+		setTitle("SESIONES");//titulo
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//no cerrar todo cuando se cierra la ventana
 			
 		setBounds(100, 100, 739, 489);
 		PanePreviaVentanaSesioness = new JPanel();
