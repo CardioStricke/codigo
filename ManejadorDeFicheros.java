@@ -22,9 +22,22 @@ import Vista.*;
  *
  */
 public class ManejadorDeFicheros {
-	String fichero;
-	String separador;
-	File archivo;
+	
+	/**
+	 * Atributos de la clase Control.ManejadorFicheros
+	 * @param fichero
+	 * @param separador
+	 * @param archivo
+	 * @param lblRellenaNom
+	 * @param lblApell
+	 * @param lblNº
+	 * @param lblFecha
+	 * @param PRIMERASESION
+	 * @param LINEASCABECERA
+	 * */
+	private String fichero;
+	private String separador;
+	private File archivo;
 	private JLabel lblRellenaNom;
 	private JLabel lblApell;
 	private JLabel lblNº;
@@ -32,6 +45,14 @@ public class ManejadorDeFicheros {
 	private final int PRIMERASESION = 5;
 	private final int LINEASCABECERA = 4;
 
+	/**
+	 * Metodo buscaUsuario en un fichero para el login
+	 * @param usuario
+	 * @param contraseña
+	 * @param fichero
+	 * @param separador
+	 * @return metodo buscaMedico, metodo buscaPaciente y null.
+	 * */
 	public Object buscaUsuario(String usuario, String contraseña,String fichero, String separador) {
 		this.fichero = fichero;
 		this.separador = separador;
@@ -74,7 +95,12 @@ public class ManejadorDeFicheros {
 		return null;
 	}
 	
-	
+	/**
+	 * Metodo buscaMedico en el fichero a partir de su ID
+	 * @param fichero
+	 * @param idLogin
+	 * @return metodo buscaPacientesMedico y null
+	 * */
 	//El fichero que hay que pasarle es infoMedicos.txt y el idLogin viene de login.txt
 	public Medico buscaMedico(String fichero, String idLogin){
 		this.fichero = fichero;
@@ -114,7 +140,12 @@ public class ManejadorDeFicheros {
 		}
 		return null;
 	}
-
+	/**
+	 * Metodo buscaPaciente del fichero a partir de su ID
+	 * @param fichero
+	 * @param idLogin
+	 * @return 
+	 * */
 	//El fichero que hay que pasarle es infoPacientes.txt y el idLogin viene de login.txt
 	public Paciente buscaPaciente(String fichero, String idLogin){
 		this.fichero = fichero;
@@ -156,6 +187,13 @@ public class ManejadorDeFicheros {
 		}
 		return null;
 	}
+	/**
+	 * Metodo busca los pacientes de cada medico. El fichero que  hay que pasarle es infoPacientes.txt y 
+	 * el idMedico viene de la ventana de validacion y depende del medico que ha validado
+	 * @param fichero
+	 * @param medico
+	 * 
+	 * */
 	//El fichero que hay que pasarle es infoPacientes.txt y el idMedico viene de la ventana de validacion y depende del medico que
 	//ha validado
 	public void buscaPacientesMedico(String fichero, Medico medico){
@@ -200,7 +238,12 @@ public class ManejadorDeFicheros {
 	}
 	
 	
-	
+	/**
+	 * Metodo listaUsuarios, es un Array de Strigns 
+	 * @param fichero
+	 * @param separador
+	 * @return resultado ( nombre y apellidos del paciente)
+	 * */
 	public ArrayList<String[]> listaUsuarios(String fichero, String separador) {
 		this.fichero = fichero;
 		this.separador = separador;
@@ -243,6 +286,11 @@ public class ManejadorDeFicheros {
 		return resultado;
 	}
 	
+	/**
+	 * Metodo buscar sesiones, lee mi archivo de sesiones del paciente y guarda los datos en 'sesions s'
+	 * @param f
+	 * @return sesiones 
+	 * */
 	public ArrayList<Sesion> buscaSesiones(File f) {
 		
 		this.separador = ";";
@@ -273,7 +321,6 @@ public class ManejadorDeFicheros {
 					String oxigeno= st.nextToken();
 					Sesion s = new Sesion(tiempo, Float.parseFloat(latitud), Float.parseFloat(longitud), Float.parseFloat(altitud), 
 							Float.parseFloat(velocidad),Float.parseFloat(distancia), Integer.parseInt(pulsaciones), Integer.parseInt(oxigeno));
-					System.out.println(s);
 					sesiones.add(s);
 				}
 				
@@ -284,7 +331,13 @@ public class ManejadorDeFicheros {
 		}
 		return sesiones;
 	}
-
+	
+	/**
+	 * Metodo devolver cabecera del fichero, 
+	 * lee solo las 4 primeras lineas del fichero [ID, PESO,ESTADO(0,1,2),COMENTARIO]
+	 * @param fichero
+	 * @return cabecera con esos 4 datos
+	 * */
 	public CabeceraSesion devolverCabecera(String fichero){
 		this.fichero = fichero;
 		File f = new File(fichero);
