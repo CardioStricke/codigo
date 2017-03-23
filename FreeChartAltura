@@ -110,7 +110,7 @@ public class FreeChartAltura extends ApplicationFrame {
     }
 
     /**
-     * Crea el dataset
+     * Asiganamos a seria1 los datos para ser representada
      * @author Ethan Recalde
      * @param XYDataset genera el dataset
      * @param serie1 guarda el tiempo y la altura e imprime la linea con las dos variables
@@ -119,22 +119,26 @@ public class FreeChartAltura extends ApplicationFrame {
      * @return collection
      */
     private static XYDataset createDataset() {
-XYSeries serie1 = new XYSeries("Altura en la sesion");
+XYSeries serie1 = new XYSeries("Altura en la sesion"); //Titulo
     	
-    	int segundos = 0;
-    	serie1.add(segundos, 0.0);
+    	int segundos = 0;//inicamos los segundos en cero ya que empiza desde ese tiempo
+    	serie1.add(segundos, 0.0);//asignamos a la seria los segundos(0) y la velocidad(0.0)
+    	//Buscamos en el array de tiempos empezando desde la posicion 1
     	for(int i = 1; i < tiempos.size(); i++){
+    		//tiempo anterior - tiempo actual = tiempo transcurrido
+    		// si ocurre esto significa que todavia no ha pasado de minuto
     		if(tiempos.get(i-1).getSegundos() < tiempos.get(i).getSegundos()){
     			segundos+=tiempos.get(i-1).getSegundos() - tiempos.get(i).getSegundos();
     		}else{
+    			//si no se cumple quiere decir que estamos en un minuto nuevo
     			segundos+=60-tiempos.get(i-1).getSegundos()+tiempos.get(i).getSegundos();
     		}
-    		serie1.add(segundos, altura.get(i).floatValue());
+    		serie1.add(segundos, altura.get(i).floatValue());//añadimos los datos
     		
     	}
 		
-		XYSeriesCollection collection = new XYSeriesCollection();
-		collection.addSeries(serie1);
+		XYSeriesCollection collection = new XYSeriesCollection();//Se crea el modelo de la grafica
+		collection.addSeries(serie1);//se le añade la serie1 con los datos de velocidad y tiempo
 
         return collection;
 
