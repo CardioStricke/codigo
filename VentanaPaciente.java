@@ -47,7 +47,27 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class VentanaPaciente extends JFrame {
-
+	/**
+	*Atributos de la VentanaPaciente
+	*@param contentpane
+	*@param controlador
+	*@param txtBuscador
+	*@param table
+	*@param lblSlimuem
+	*@param textArea
+	*@param textNombre
+	*@param textApellidos
+	*@param textId
+	*@param textFecha
+	*@param paciente
+	*@param fichero
+	*@param modelo
+	*@param tiempos
+	*@param velocidades
+	*@param altura
+	*@param pulsaciones
+	*@param sangre
+	*/
 	private JPanel contentPane;
 	public LoginControl controlador;
 	private JTextField txtBuscador;
@@ -61,22 +81,21 @@ public class VentanaPaciente extends JFrame {
 	private Paciente paciente;
 	private File fichero;
 	private DefaultTableModel modelo;
-	
 	private ArrayList<Tiempo> tiempos;
 	private ArrayList<Float> velocidades; 
 	private ArrayList<Float> altura; 
 	private ArrayList<Integer> pulsaciones; 
 	private ArrayList<Integer> sangre; 
 	
-	/**
-	 * Creamos la ventana
-	 */
-  
 	
+	/**
+	 * Creamos la ventana en el constructor
+	 */
 	public VentanaPaciente(Paciente paciente) {
 		this.paciente = paciente;
-		
+		//Maximizar
 		setExtendedState(6);
+		//titulo de cada paciente
 		this.setTitle(paciente.getNombre()+" "+paciente.getApellidos());//titulo de la ventana
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//DISPOSE, al cerrar poder seguir probando logins
 		setBounds(100, 100, 770, 533);
@@ -113,7 +132,8 @@ public class VentanaPaciente extends JFrame {
 		panel.setBounds(25, 25, 338, 300);
 		panel_1.add(panel);
 		panel.setLayout(null);
-		
+			
+		//foto perfil
 		JLabel lblFotoPerfil = new JLabel("FotoPerfil");
 		lblFotoPerfil.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\logoLogin.jpg"));
 		lblFotoPerfil.setBounds(0, 0, 338, 300);
@@ -143,7 +163,7 @@ public class VentanaPaciente extends JFrame {
 		btnBuscar.addMouseListener(new MouseAdapter() {
 		
 			public void mouseClicked(MouseEvent arg0) {
-				
+				//falta el buscador de sesiones
 			}
 		});
 		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -163,9 +183,9 @@ public class VentanaPaciente extends JFrame {
 		panel_1.add(btnNuevaSesion);
 
 		btnNuevaSesion.addMouseListener(new MouseAdapter() {
-			@Override
 			
-		     
+			
+		     	//accion del boton
 			public void mouseClicked(MouseEvent arg0) {
 				
 			       //Creamos el objeto JFileChooser
@@ -183,35 +203,36 @@ public class VentanaPaciente extends JFrame {
 			          
 			         //Si el usuario, pincha en aceptar
 			         
-			         /*formato nomre fichero sesiones. 
+			         /*formato nombre fichero sesiones. 
 			          * IdPaciente_IdSesion_Fecha_Hora*/
 			         if(seleccion==JFileChooser.APPROVE_OPTION){
+					 //selecciono el fichero
 			        	 fichero=fc.getSelectedFile();
+					 //llamo a manejador de ficheros
 			        	 ManejadorDeFicheros mf = new ManejadorDeFicheros();
 			        	 ArrayList<Sesion> sesiones = mf.buscaSesiones(fichero);
 			        	 
+					 //guardo en tiempos el metodo que contiene el tiempo de sesiones
 			     		 tiempos = GestionDatos.obtenerTiempos(sesiones);
+					 //guardo en pulsaciones el metodo que contiene las pulsaciones de sesiones
 			     		 pulsaciones = GestionDatos.obtenerPulsaciones(sesiones); 
+					  //guardo en altura el metodo que contiene la altitud de sesiones
 			     		 altura = GestionDatos.obtenerDistancia(sesiones);
+					  //guardo en sangre el metodo que contiene el porcentaje de oxigeno en sangre de sesiones
 			     		 sangre = GestionDatos.obtenerOxigenoSangre(sesiones);
+					  //guardo en velocidades el metodo que contiene las velocidades de sesiones
 			     		 velocidades =  GestionDatos.obtenerVelocidades(sesiones);
 			        	
-			     		
+			     		 //guardo el nombre del fichero
 			     		 String nombreFichero = fichero.getName();
-			        	 String sesion = "Sesion "+Integer.parseInt(nombreFichero.substring(3,5));
-			        	 String fecha = nombreFichero.substring(6,8)+"/"+ nombreFichero.substring(8, 10)+"/"+nombreFichero.substring(10,14);
-			        	 String hora = nombreFichero.substring(15,17)+":"+ nombreFichero.substring(17,19)+":"+nombreFichero.substring(19,21);
+			        	 //guardo el numero de la sesion
+					 String sesion = "Sesion "+Integer.parseInt(nombreFichero.substring(3,5));
+			        	 //guardamos la fecha del fichero separada por posiciones dd:mm::aa
+					 String fecha = nombreFichero.substring(6,8)+"/"+ nombreFichero.substring(8, 10)+"/"+nombreFichero.substring(10,14);
+			        	 //guardo la hora de inicio de sesion
+					 String hora = nombreFichero.substring(15,17)+":"+ nombreFichero.substring(17,19)+":"+nombreFichero.substring(19,21);
 			        	
-			        	 if(sesion.equals(sesion)){
-			        	 modelo.addRow(new Object[]{sesion, fecha, hora});
-			        
-			        	  }else{
-			        	 JOptionPane.showMessageDialog(null,"Esta sesion ya esta subida"); 
-			        	 }
-			     		 
-			         }
-			  
-			}
+			        			}
 		});
 		
 		
