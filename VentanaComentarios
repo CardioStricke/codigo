@@ -13,6 +13,12 @@ import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
+/**
+ * Esta clase crea una ventana por la que se imprimen los comentarios que los medicos le ponen a sus pacientes sobre las sesiones
+ *@author Alejandro Cebrian
+ *@version 1.0
+ */
+
 public class VentanaComentarios extends JFrame {
 
 	private JPanel contentPane;
@@ -20,12 +26,14 @@ public class VentanaComentarios extends JFrame {
 
 	
 	/**
-	 * Create the frame.
+	 * @author Alejandro Cebrian
+	 * @param panel se crea la ventana 
+	 * @param lblcomentarios Jlabel en el que se imprimen los comentarios
 	 */
 	public VentanaComentarios() {
 		
 		
-		setExtendedState(6);
+		setExtendedState(6); //tamaño maximo
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\icono.png"));
 		this.setTitle("Comentarios");
 		
