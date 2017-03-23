@@ -52,7 +52,34 @@ import javax.swing.plaf.FontUIResource;
 public class VentanaMedico extends javax.swing.JFrame {
 
     /**
-     * Creates new form VentanaMedico
+     * Creamos los atributos de la ventana medico
+     * @param botonBuscador
+     * @param lblBuscador
+     * @param scrollTable
+     * @param tblLista
+     * @param txtBuscador
+     * @param controlador
+     * @param userList
+     * @param campoNombre
+     * @param campoApellido
+     * @param panelFoto
+     * @param lblfoto
+     * @param txtInfoMedico
+     * @param nombre;
+     * @param apellidos;
+     * @param id;
+     * @param fechaNacimiento
+     * @param resulInfo
+     * @param lblSlimUem
+     * @param lblRellenaNom
+     * @param lblRellenNº
+     * @param lblRellenaApell
+     * @param medico
+     * @param textNombre;
+     * @param textRellenaApellido
+     * @param textRellenaFecha
+     * @param textRellenaNº
+     * @param lblNewLabel
      */                     
     private javax.swing.JButton botonBuscador;
     private javax.swing.JLabel lblBuscador;
@@ -84,11 +111,13 @@ public class VentanaMedico extends javax.swing.JFrame {
 
 		
 	/**
-	 * 
+	 * Constructor 
+	 * @param medico
 	 */
 	public VentanaMedico(Medico medico) {
 		this.medico = medico;
-
+		
+		//llamamos al metodo que contiene la parte grafica
     	initComponents();
     
 		//icono CardioStrike
@@ -120,21 +149,24 @@ public class VentanaMedico extends javax.swing.JFrame {
 	}
     
   
-    @SuppressWarnings("unchecked")
-                             
+
+    /**
+     * Metodo que contiene parte grafica
+     * */                     
     private void initComponents() {
     	//maximizar la ventana entera
 		setExtendedState(6);
 		
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);//DISPOSE, al cerrar poder seguir probando 
     
-        
+        //creo la tabla con los pacientes de cada medico
         Object[][] contenidoModelo = new Object[medico.getPacientes().size()][3];
         for(int i = 0; i < medico.getPacientes().size(); i++){
         	contenidoModelo[i][0] = medico.getPacientes().get(i).getIdPaciente();
         	contenidoModelo[i][1] = medico.getPacientes().get(i).getNombre();
         	contenidoModelo[i][2] = medico.getPacientes().get(i).getApellidos();
         }
+        
         
         JPanel panelfondo = new JPanel();
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,22 +215,22 @@ public class VentanaMedico extends javax.swing.JFrame {
                 textRellenaApellido.setBounds(309, 567, 187, 16);
                 panelfondo.add(textRellenaApellido);
                 textRellenaApellido.setColumns(10);
-                
+                //asignamos foto para texto
                 JLabel label_1 = new JLabel("");
                 label_1.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\txt_grande.png"));
                 label_1.setBounds(300, 864, 259, 50);
                 panelfondo.add(label_1);
-                
+                //asignamos foto para texto 
                 lblRellenaApell = new JLabel("");
                 lblRellenaApell.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\txt_grande.png"));
                 lblRellenaApell.setBounds(300, 556, 249, 42);
                 panelfondo.add(lblRellenaApell);
-                
+                //asignamos foto para texto
                 lblRellenaNº = new JLabel("");
                 lblRellenaNº.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\txt_grande.png"));
                 lblRellenaNº.setBounds(300, 713, 259, 43);
                 panelfondo.add(lblRellenaNº);
-                
+                //asignamos foto para texto
                 lblRellenaNom = new JLabel("");
                 lblRellenaNom.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\txt_grande.png"));
                 lblRellenaNom.setBounds(300, 388, 242, 65);
@@ -228,7 +260,7 @@ public class VentanaMedico extends javax.swing.JFrame {
                 lblNombre.setForeground(Color.WHITE);
                 lblNombre.setBounds(37, 385, 127, 48);
                 panelfondo.add(lblNombre);
-                
+                //foto logo uem
                 lblSlimUem = new JLabel("");
                 lblSlimUem.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\logoSlimUem.jpg"));
                 lblSlimUem.setBounds(903, 47, 848, 152);
@@ -271,7 +303,7 @@ public class VentanaMedico extends javax.swing.JFrame {
         tblLista.setModel(new DefaultTableModel(
         		
             contenidoModelo,
-            
+            //nombres a las columnas
             new String [] {
               "Numero de paciente", "Nombre", "Apellidos"
             }
@@ -284,6 +316,7 @@ public class VentanaMedico extends javax.swing.JFrame {
         
         tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+            //accion doble click sobre una fila de la tabla
             if(evt.getClickCount()==2){
             	
             
@@ -304,13 +337,14 @@ public class VentanaMedico extends javax.swing.JFrame {
   
                   	
 
-        
+        //foto de fondo
         JLabel label = new JLabel("");
         label.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\fondoMedico.jpg"));
         label.setBounds(0, 13, 1915, 1001);
         panelfondo.add(label);
         botonBuscador.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
+        		//accion del buscador de pacientes en tabla
         		int pos = GestionDatos.buscarPaciente(txtBuscador.getText(), medico.getPacientes());
         		if(pos != GestionDatos.NOENCONTRADO){
         			tblLista.getSelectionModel().setSelectionInterval (pos, pos);
@@ -329,7 +363,10 @@ public class VentanaMedico extends javax.swing.JFrame {
 
         pack();
     }                   
-    
+    /**
+     * Controlador
+     * @param lc
+     * */
     public void addController (LoginControl lc){
 	   	controlador = lc;
 	}
