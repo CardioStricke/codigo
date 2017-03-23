@@ -187,7 +187,7 @@ public class VentanaSesiones extends JFrame {
 		JLabel lblSangre = new JLabel("");
 		lblSangre.setBounds(0, 0, 490, 326);
 		VentanaSesionesO2Sangre.add(lblSangre);
-		lblSangre.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\WhatsApp Image 2017-03-21 at 17.11.56.jpeg"));
+		lblSangre.setIcon(new ImageIcon("src/Imagenes/WhatsApp Image 2017-03-21 at 17.11.56.jpeg"));
 		
 		//Foto grafica reajsutada al tamaño
 		ImageIcon imagen1 = new ImageIcon("src/imagenes/Grafica.jpg");
@@ -206,7 +206,7 @@ public class VentanaSesiones extends JFrame {
 		JLabel lblPulsaciones = new JLabel("");
 		lblPulsaciones.setBounds(0, 0, 557, 330);
 		VentanaSesionesPulsaciones.add(lblPulsaciones);
-		lblPulsaciones.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\Grafica.jpg"));
+		lblPulsaciones.setIcon(new ImageIcon("src/Imagenes/Grafica.jpg"));
 	
 		
 		//Foto grafica reajsutada al tamaño
@@ -226,7 +226,7 @@ public class VentanaSesiones extends JFrame {
 		JLabel lblAltitud = new JLabel("");
 		lblAltitud.setBounds(0, 51, 573, 302);
 		VentanaSesionesAltitud.add(lblAltitud);
-		lblAltitud.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\Grafica.jpg"));
+		lblAltitud.setIcon(new ImageIcon("src/Imagenes/Grafica.jpg"));
 		
 		
 		//Foto grafica reajsutada al tamaño
