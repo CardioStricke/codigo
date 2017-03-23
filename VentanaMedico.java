@@ -19,9 +19,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import Control.ControladorPrincipal;
+import Control.FreeChartO2;
 import Control.LoginControl;
 import Control.ManejadorDeFicheros;
-import Model.CellEditable;
 import Model.GestionDatos;
 import Model.Login;
 import javax.swing.GroupLayout.Alignment;
@@ -47,7 +47,7 @@ import javax.swing.plaf.FontUIResource;
 
 /**
  *
- * @author KATY
+ * @author Ethan Recalde
  */
 public class VentanaMedico extends javax.swing.JFrame {
 
@@ -88,17 +88,12 @@ public class VentanaMedico extends javax.swing.JFrame {
 	 */
 	public VentanaMedico(Medico medico) {
 		this.medico = medico;
-		
-		setExtendedState(6);
-		
-		
+
+    	initComponents();
+    
 		//icono CardioStrike
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\icono.png"));
-    	    	
 		
-	
-    	initComponents();
-    	
     	setLocationRelativeTo(null);
     	panelfoto.setLayout(null);
     	
@@ -115,10 +110,8 @@ public class VentanaMedico extends javax.swing.JFrame {
         lblSlimUem.setIcon(icono);
         this.repaint();
         
-        //Redimensionar fotos campos
-        ImageIcon imagen2 = new ImageIcon("src/Imagenes/txt_grande.png");
-        this.repaint();
-        
+           
+        //Rellena los campos TextField con la info del medico
         textNombre.setText(medico.getNombre());
         textRellenaNº.setText(medico.getnColegiado());
         textRellenaApellido.setText(medico.getApellidos());
@@ -126,26 +119,21 @@ public class VentanaMedico extends javax.swing.JFrame {
         
 	}
     
-  //icono
-	public Image getIconImage() {
-    	   Image retValue = Toolkit.getDefaultToolkit().
-    	         getImage(ClassLoader.getSystemResource("resources/icono.png"));
-
-
-    	   return retValue;
-    	}
-
+  
     @SuppressWarnings("unchecked")
                              
     private void initComponents() {
-    	
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    	//maximizar la ventana entera
+		setExtendedState(6);
+		
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);//DISPOSE, al cerrar poder seguir probando 
     
         
         Object[][] contenidoModelo = new Object[medico.getPacientes().size()][3];
         for(int i = 0; i < medico.getPacientes().size(); i++){
-        	contenidoModelo[i][0] = medico.getPacientes().get(i).getNombre();
-        	contenidoModelo[i][1] = medico.getPacientes().get(i).getApellidos();
+        	contenidoModelo[i][0] = medico.getPacientes().get(i).getIdPaciente();
+        	contenidoModelo[i][1] = medico.getPacientes().get(i).getNombre();
+        	contenidoModelo[i][2] = medico.getPacientes().get(i).getApellidos();
         }
         
         JPanel panelfondo = new JPanel();
@@ -272,26 +260,40 @@ public class VentanaMedico extends javax.swing.JFrame {
         scrollTabla.setFont(scrollTabla.getFont().deriveFont(scrollTabla.getFont().getSize() + 40f));
         scrollTabla.setBounds(867, 400, 867, 547);
         panelfondo.add(scrollTabla);
-        tblLista = new javax.swing.JTable();
+        tblLista = new javax.swing.JTable(){
+        	//Evitar que sea editable la tabla
+        	public boolean isCellEditable(int rowIndex, int vColIndex) {
+                  return false;
+              }
+        };
+      
         
         tblLista.setModel(new DefaultTableModel(
         		
             contenidoModelo,
             
             new String [] {
-              "Nombre", "Apellidos"
+              "Numero de paciente", "Nombre", "Apellidos"
             }
             
         ));
+        
+      
         tblLista.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         tblLista.setIntercellSpacing(new java.awt.Dimension(5, 5));
         
         tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             if(evt.getClickCount()==2){
-            	VentanaPaciente frame = new VentanaPaciente();
+            	
+            
+            	
+            	int row = tblLista.rowAtPoint(evt.getPoint());
+            	
+            	VentanaPaciente frame = new VentanaPaciente(medico.getPacientes().get(row));
 				frame.setVisible(true);
 				frame.toFront();
+            	
 			}
 				
            }
@@ -299,7 +301,7 @@ public class VentanaMedico extends javax.swing.JFrame {
         scrollTabla.setViewportView(tblLista);
         tblLista.setRowHeight(70);
      
-       // tblLista myTable = new tblLista(new CellEditable());
+  
                   	
 
         
@@ -326,10 +328,7 @@ public class VentanaMedico extends javax.swing.JFrame {
         
 
         pack();
-    }// </editor-fold>                        
-
-	
-	
+    }                   
     
     public void addController (LoginControl lc){
 	   	controlador = lc;
