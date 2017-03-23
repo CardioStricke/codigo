@@ -13,36 +13,23 @@ import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-public class ComentariosSesion extends JFrame {
+public class VentanaComentarios extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ComentariosSesion frame = new ComentariosSesion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
-	public ComentariosSesion() {
+	public VentanaComentarios() {
 		
+		
+		setExtendedState(6);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\icono.png"));
 		this.setTitle("Comentarios");
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,24 +38,24 @@ public class ComentariosSesion extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setForeground(Color.BLACK);
-		panel.setBounds(0, 0, 432, 253);
+		panel.setBounds(0, 0, 1914, 1001);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(33, 78, 358, 141);
+		textField.setBounds(313, 336, 1297, 620);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblComentarios = new JLabel("Comentarios:");
 		lblComentarios.setForeground(Color.WHITE);
-		lblComentarios.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblComentarios.setBounds(34, 48, 134, 23);
+		lblComentarios.setFont(new Font("Tahoma", Font.PLAIN, 53));
+		lblComentarios.setBounds(317, 227, 356, 78);
 		panel.add(lblComentarios);
 		
 		JLabel lblFondopantalla = new JLabel("fondopantalla");
 		lblFondopantalla.setIcon(new ImageIcon("C:\\Users\\ethan\\workspace\\CardioStrikee\\src\\Imagenes\\fondoMedico.jpg"));
-		lblFondopantalla.setBounds(0, 0, 432, 263);
+		lblFondopantalla.setBounds(0, 0, 1914, 1001);
 		panel.add(lblFondopantalla);
 	}
 }
