@@ -1,6 +1,7 @@
 package Vista;
 
 import java.awt.BorderLayout;
+
 import java.awt.*;
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Control.*;
+import Model.Medico;
 import Vista.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.Icon;
@@ -38,24 +40,28 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
+import Model.Paciente;
 
 public class VentanaPrincipal extends JFrame {
 	
 	private javax.swing.JButton botonEntrar;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblContraseÃ±a;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtUsuario;
          
 	private JPanel contentPane;
 	public ControladorPrincipal controlador;
 	public ManejadorDeFicheros mf;
-	private int resulbusca;
+	private Object resulbusca;
 	private javax.swing.JLabel lblCardio;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JLabel lblFondo;
-	ImageIcon imagen;
-	Icon icono;
+	private int x,y;
+	private JLabel lblLogoSlim;
+	private ImageIcon imagen;
+	private Icon icono;
+	
 	
 	
 	/**
@@ -81,8 +87,7 @@ public class VentanaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//VentanaPrincipalPrincipal frame = new VentanaPrincipalPrincipal();
-					//frame.setVisible(true);
+				
 					 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					   
 				} catch (Exception e) {
@@ -144,13 +149,13 @@ public class VentanaPrincipal extends JFrame {
 		jPanel1.add(lblUsuario);
 		
 			lblUsuario.setText("Usuario");
-			lblContraseña = new javax.swing.JLabel();
-			lblContraseña.setForeground(Color.WHITE);
-			lblContraseña.setFont(new Font("Tahoma", Font.BOLD, 16));
-			lblContraseña.setBounds(219, 172, 111, 14);
-			jPanel1.add(lblContraseña);
+			lblContraseÃ±a = new javax.swing.JLabel();
+			lblContraseÃ±a.setForeground(Color.WHITE);
+			lblContraseÃ±a.setFont(new Font("Tahoma", Font.BOLD, 16));
+			lblContraseÃ±a.setBounds(219, 172, 111, 14);
+			jPanel1.add(lblContraseÃ±a);
 			
-				lblContraseña.setText("Contrase\u00F1a");
+				lblContraseÃ±a.setText("Contrase\u00F1a");
 			txtUsuario = new javax.swing.JTextField();
 			txtUsuario.setBorder(null);
 			txtUsuario.setBounds(180, 138, 168, 16);
@@ -197,17 +202,16 @@ public class VentanaPrincipal extends JFrame {
 	        System.exit(0);
 	    }             
 	
-	 int x,y;
-	 private JLabel lblLogoSlim;
+	
 	/**
-	 * Creo mi interfaz gráfica
+	 * Creo mi interfaz grÃ¡fica
 	 */
 	public VentanaPrincipal() {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setForeground(Color.WHITE);
 	
 		this.setResizable(false);//bloquea maximizar
-		setLocationRelativeTo(null);//casi lo pone en el centro
+	
 		
 			initComponents();
 	        this.setLocationRelativeTo(null);
@@ -233,7 +237,7 @@ public class VentanaPrincipal extends JFrame {
 		        		.addGap(0, 535, Short.MAX_VALUE)
 		        );
 		        getContentPane().setLayout(groupLayout);
-		        getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblContraseña, lblUsuario, txtUsuario, botonEntrar, txtPassword}));
+		        getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblContraseÃ±a, lblUsuario, txtUsuario, botonEntrar, txtPassword}));
 
 		        pack();
 		    }
@@ -263,27 +267,28 @@ public class VentanaPrincipal extends JFrame {
     private void BotonEntrarActionPerformed(java.awt.event.ActionEvent evt) {      
                                       
     	String usuario = txtUsuario.getText();
-        String contraseña = String.valueOf(txtPassword.getText());
+        String contraseÃ±a = String.valueOf(txtPassword.getText());
         
     	// Creo el controlador pasando la VentanaPrincipal
 		ControladorPrincipal cp=new ControladorPrincipal(this);//llamo al propio objeto de esta VentanaPrincipal principal
 		
         //Leer Usuarios
  		cp.mf = new ManejadorDeFicheros();
- 		resulbusca = cp.mf.buscaUsuario(txtUsuario.getText(),txtPassword.getText(),"C:\\Users\\ethan\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
- 		ArrayList<String[]> pacientes = cp.mf.listaUsuarios("C:\\Users\\ethan\\workspace\\CardioStrikee\\Data\\usuarios2.txt", ";");
+ 		resulbusca = cp.mf.buscaUsuario(txtUsuario.getText(),txtPassword.getText(),"C:\\Users\\ethan\\workspace\\CardioStrikee\\Data\\login.txt", ";");
+ 		//ArrayList<String[]> pacientes = cp.mf.listaUsuarios("C:\\Users\\ethan\\workspace\\CardioStrikee\\Data\\login.txt", ";");
+ 		//Medico medico = cp.mf.buscaMedicoLogin(String fichero, String idLogin);
  		/*if(pacientes == null){
  			
  			System.out.println("ERROR NULL:");
  		}*/
-    	if(resulbusca == 2){
+    	if(resulbusca instanceof Paciente){
     		
-    	//clase capaz de encolar eventos de forma asíncrona.
+    	//clase capaz de encolar eventos de forma asÃ­ncrona.
     	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					
-					VentanaPaciente frame = new VentanaPaciente();
+					VentanaPaciente frame = new VentanaPaciente((Paciente)resulbusca);
 					frame.setVisible(true);
 					frame.toFront();
 					
@@ -294,18 +299,18 @@ public class VentanaPrincipal extends JFrame {
 		});dispose();
     	}
     	
-    	if(resulbusca == 1){
+    	if(resulbusca instanceof Medico){
     		
     		
     		EventQueue.invokeLater(new Runnable() {
     			public void run() {
     				try {
     					
-    					VentanaMedico frame = new VentanaMedico(pacientes);
+    					VentanaMedico frame = new VentanaMedico((Medico)resulbusca);
     					
     					frame.setVisible(true);
     					frame.toFront();
-    					frame.setTitle("tITULO MEDICO");
+    					frame.setTitle(((Medico)resulbusca).getNombre()+" "+((Medico)resulbusca).getApellidos());
     						
     				} catch (Exception e) {
     					e.printStackTrace();
@@ -315,8 +320,8 @@ public class VentanaPrincipal extends JFrame {
 		}
     	
 	    
-	    		if(resulbusca == 0){//mensaje de error
-	    		JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
+	    		if(resulbusca == null){//mensaje de error
+	    			JOptionPane.showMessageDialog(null, "Usuario y/o contraseÃ±a incorrecta");
 	    		
 	    	
 	    	
