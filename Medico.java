@@ -1,16 +1,19 @@
 package Model;
 import java.util.ArrayList;
+/**
+ * Esta clase contiene y define la info relativa al medico 
+ *@author Bruno Matiacci
+ *@version 1.0
+ * Siguiendo el orden del fichero : 
+ *@param idMedico codigo del médico
+ *@param nombre nombre del médico
+ *@param apellidos apellidos del médico
+ *@param fecha fecha de nacimiento del médico
+  * */
 
 //Juan;Rodriguez;15/11/1965;0012134
 public class Medico {
 
-	/*En el fichero el orden es: 
-	 * idMedico
-	 * nombre
-	 * apellidos
-	 * fecha
-	 * idUsuario -> en el fichero de login
-	 * */
 	private int idMedico;
 	private String nombre;
 	private String apellidos;
