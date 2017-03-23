@@ -14,33 +14,45 @@ import Model.*;
 import Vista.*;
 
 /*
-* Detectar y manejar eventos de acción
+* Detectar y manejar eventos de acciÃ³n
 */
 public class LoginControl implements ActionListener
 {
+	/**
+	 * Atributos constantes de string 
+	 * */
 	public final static String SELECCIONAR="S";
 	public final static String MODIFICAR="M";
 
 	
-	
+	/**
+	 * Atributos publicos del controlador para ser usados en otras clases
+	 * */
 	public VentanaMedico ventanaControlada;
 	public ControladorPrincipal controlPrincipal;
 	
 	
-	//constructor
+	/**
+	 * Constructor
+	 * @param win 
+	 * @param cp
+	 * */
 	public LoginControl (VentanaMedico win, ControladorPrincipal cp)	{
 		ventanaControlada = win;
 		controlPrincipal = cp;
 	}
 	
-	
+	/**
+	 * Metodo de la accion de un evento
+	 * 
+	 * */
 	public void actionPerformed(ActionEvent e) {
-	
+		
     	String cmd = (String)(e.getActionCommand());
         if (cmd == LoginControl.MODIFICAR) {
         	Login user = (Login)ventanaControlada.usersList.getSelectedItem();
         	user.usuario=ventanaControlada.campoNombre.getText();
-        	user.contraseña=ventanaControlada.campoApellido.getText();
+        	user.contraseÃ±a=ventanaControlada.campoApellido.getText();
         	
         	ventanaControlada.usersList.repaint(); //Para que se actualice el cambio en el combo
         	ventanaControlada.dispose();
@@ -48,7 +60,7 @@ public class LoginControl implements ActionListener
         	Login user = (Login)ventanaControlada.usersList.getSelectedItem();
 			
 			ventanaControlada.campoNombre.setText(user.usuario);
-			ventanaControlada.campoApellido.setText(user.contraseña);
+			ventanaControlada.campoApellido.setText(user.contraseÃ±a);
 			
 		}
         
